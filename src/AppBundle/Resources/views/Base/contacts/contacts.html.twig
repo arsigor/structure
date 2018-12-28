@@ -1,0 +1,24 @@
+{% if contacts != [] %}
+    {% for contact in contacts %}
+        <div class="col-xs-12 col-sm-4 col-md-4">
+            <div class="footer_text_block">
+                <h5>
+                    {% if contact.telephonemob1 %}
+                        тел. {{ contact.telephonemob1 }}
+                    {% endif %}
+                </h5>
+                <h5>
+                    {% if contact.telephonemob2 %}
+                        тел. {{ contact.telephonemob2 }}
+                    {% endif %}
+                </h5>
+                <h5>
+                    {% if contact.email %}
+                        e-mail: {{ contact.email }}
+                    {% endif %}
+                </h5>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+

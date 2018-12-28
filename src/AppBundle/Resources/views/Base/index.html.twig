@@ -1,0 +1,29 @@
+{% extends '::base.html.twig' %}
+
+{% block style %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header %}
+    {#{{ render(controller('AppBundle:Base:carousel')) }}#}
+{% endblock %}
+
+{% block body %}
+    {#{{ render(controller('AppBundle:BaseTours:index')) }}#}
+    {#{{ render(controller('AppBundle:BaseServices:index')) }}#}
+    {#{{ render(controller('AppBundle:Base:reviews')) }}#}
+    {#{{ render(controller('AppBundle:BaseNews:index')) }}#}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Second menu</h2>
+                {{ knp_menu_render('MenuBundle:MenuBuilder:createSecondMenu', {'currentClass': 'active'}) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+    {#<script src="{{ asset('bundles/app/base/libs/header_carousel/header_carousel.js') }}"></script>#}
+{% endblock %}

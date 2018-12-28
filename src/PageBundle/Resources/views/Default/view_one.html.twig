@@ -1,0 +1,35 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <div class="container">
+            <section class="content-header">
+                <h1>
+                    {% if page != null %}
+                        {{ page.title }}
+                    {% else %}
+                        Error
+                    {% endif %}
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="{{ path('homepage') }}"><i class="fa fa-home"></i> {{ 'Home'|trans }}</a></li>
+                    <li class="active">{% if page != null %}{{ page.title }}{% else %}{{ app.request.get('slug') }}{% endif %}</li>
+                </ol>
+            </section>
+            <section class="content">
+                <div class="col-md-12">
+                    <div class="row">
+                        {% if page != null %}
+                            <div class="text-justify">
+                                {{ page.description|raw }}
+                            </div>
+                        {% else %}
+                            <h2 class="text-danger" style="margin-top: 0px;">Post "{{ app.request.get('slug') }}" not found</h2>
+                        {% endif %}
+                    </div>
+                    <hr />
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}

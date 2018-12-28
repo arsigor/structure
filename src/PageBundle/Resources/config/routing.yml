@@ -1,0 +1,22 @@
+admin_page_index:
+    path:     /admin/page/index/{page}/{perpage}
+    defaults: { _controller: PageBundle:AdminPage:index, page: 1, perpage: %perpage_admin% }
+    requirements:
+        page: \d+
+        perpage: \d+
+
+admin_page_create:
+    path:     /admin/page/create/new
+    defaults: { _controller: PageBundle:AdminPage:create }
+
+admin_page_edit:
+    path:     /admin/page/edit/{id}
+    defaults: { _controller: PageBundle:AdminPage:edit }
+    requirements:
+        page: \d+
+
+admin_page_delete:
+    path:     /admin/page/delete/{id}
+    defaults: { _controller: PageBundle:AdminPage:delete }
+    requirements:
+        page: \d+

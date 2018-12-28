@@ -1,0 +1,53 @@
+{% extends '::admin.html.twig' %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>{{ 'page.show.all.pageTitle' }}</h1>
+            <ol class="breadcrumb">
+                <li><a href="{{ path('homepage') }}"><i class="fa fa-home"></i> {{ 'Home'|trans }}</a></li>
+                <li><a href="{{ path('admin') }}">{{ 'admin'|trans }}</a></li>
+                <li class="active">{{ 'page.show.all'|trans }}</li>
+            </ol>
+        </section>
+        <section class="content">
+            <nav class="navbar navbar-default navbar-white-group" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-collapse">
+                        <div class="navbar-left"></div>
+                    </div>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{{ path('page_create') }}"><i class="fa fa-plus-circle"></i> Add new</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="well well-white-group">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th><h4><b>Pages</b></h4></th>
+                            <th class="text-right" style="width: 220px;"><h4><b>Actions</b></h4></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in pages %}
+                            <tr>
+                                <td>{{ p.title }}</td>
+                                <td class="text-right">
+                                    <div class="btn-group">
+                                        <a href="{{ path('page_edit', {id:p.id}) }}" class="btn btn-sm btn-default">
+                                            <span class="fa fa-edit"></span>
+                                        </a>
+                                        <a href="{{ path('page_delete', {id:p.id}) }}" onclick="return confirm('Remove page?');" class="btn btn-sm btn-default">
+                                            <span class="fa fa-trash"></span>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+{% endblock %}

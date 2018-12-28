@@ -1,0 +1,99 @@
+{% extends '::admin.html.twig' %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>{{ 'Users'|trans }}</h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ path('homepage') }}"><i class="fa fa-home"></i> {{ 'Home'|trans }}</a></li>
+            <li><a href="{{ path('admin') }}">{{ 'admin'|trans }}</a></li>
+            <li class="active">{{ 'Users'|trans }}</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="box box-warning">
+            <div class="box-header with-border">
+                <div class="col-md-9">
+                    {{ form_start(form, {'attr': {'class': 'navbar-form navbar-left'} }) }}
+                    <div class="input-group">
+                        {{ form_widget(form.search, {'attr': {'class': 'form-control'} }) }}
+                        <span class="input-group-btn">
+                            <button class="btn btn-flat btn-warning" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+                <div class="col-md-3">
+                    {% include '::admin_patrials/perpage.html.twig' %}
+                </div>
+            </div>
+        </div>
+        <div class="box box-warning">
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tr>
+                        <th>#</th>
+                        <th>{{ 'AdminUsers'|trans }}</th>
+                        <th>{{ 'AdminUsersName'|trans }}</th>
+                        <th>{{ 'AdminUsersLogin'|trans }}</th>
+                        <th>{{ 'AdminUsersEmail'|trans }}</th>
+                        <th>{{ 'AdminUsersOn'|trans }}</th>
+                        <th>{{ 'AdminUsersRights'|trans }}</th>
+                        <th>{{ 'AdminUsersLastLogin'|trans }}</th>
+                        <th class="text-right">{{ 'AdminUsersAction'|trans }}</th>
+                    </tr>
+                    <tbody>
+                    {% if users is defined %}
+                        {% set i = 1 %}
+                        {% for u in users %}
+                            <tr>
+                                <td>{{ i }}</td>
+                                <td>
+                                    <div class="text-center">
+                                        {% if u.path != '' %}
+                                            {% set path = '/data/users/'~u.id~'/'~u.path %}
+                                            <img src="{{ path }}" class="img img-resposive img-thumbnail" style="max-width: 64px"/>
+                                        {% else %}
+                                            <img src="/bundles/app/admin/images/avatar.jpg" class="img img-resposive" style="max-width: 20px; max-height: 20px;" />
+                                        {% endif %}
+                                    </div>
+                                </td>
+                                <td>
+                                    {% if u.firstname is defined %}{{ u.firstname }}{% endif %}
+                                    {% if u.lastname is defined %}{{ u.lastname }}{% endif %}
+                                    {% if u.patronymic is defined %}{{ u.patronymic }}{% endif %}
+                                </td>
+                                <td>{{ u.username }}</td>
+                                <td>{{ u.email }}</td>
+                                <td>
+                                    {% if u.enabled == null %}Ні{% else %}Так{% endif %}
+                                </td>
+                                <td>{{ u.roles[0]|slice(5) }}</td>
+                                <td>{{ u.lastlogin|date('d-m-Y H:i') }}</td>
+                                <td class="text-right">
+                                    <a href="{{ path('admin_user_edit', {id:u.id}) }}" class="btn btn-sm btn-success btn-flat">
+                                        <span class="fa fa-edit"></span>
+                                    </a>
+                                    <a href="{{ path('admin_user_delete', {id:u.id}) }}" onclick="return confirm('{{ 'AdminDeleteConfirm'|trans }}')" class="btn btn-sm btn-danger btn-flat">
+                                        <span class="fa fa-trash"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% set i = i+1 %}
+                        {% endfor %}
+                    {% endif %}
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </section>
+    <div class="col-md-12">
+        {% block sub%}{% endblock %}
+        <div class="navigation text-center">
+            {{ knp_pagination_render(users) }}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,18 @@
+services:
+    menu.menu_builder:
+        class: MenuBundle\Menu\MenuBuilder
+        arguments: ["@knp_menu.factory", "@doctrine.orm.entity_manager"]
+        tags:
+            - { name: knp_menu.menu_builder, method: createMainMenu, alias: main }
+
+    menu.item.form.type.em:
+        class: MenuBundle\Form\Type\ItemType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+
+    menu.route.form.type.em:
+        class: MenuBundle\Form\Type\RouteType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }

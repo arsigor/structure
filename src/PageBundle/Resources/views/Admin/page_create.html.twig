@@ -1,0 +1,224 @@
+{% extends '::admin.html.twig' %}
+
+{% block style %}
+    {{ parent() }}
+    <link rel="stylesheet" media="screen" href="{{ asset('bundles/blog/admin/css/jquery.fileuploader-theme-onebutton.css') }}" />
+    <link rel="stylesheet" media="screen" href="{{ asset('bundles/blog/admin/css/jquery.fileuploader.css') }}" />
+    <link rel="stylesheet" media="screen" href="{{ asset('bundles/blog/admin/css/blog.css') }}" />
+{% endblock %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>{{ 'page.create.pageTitle'|trans }}</h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ path('homepage') }}"><i class="fa fa-home"></i> {{ 'Home'|trans }}</a></li>
+            <li><a href="{{ path('admin') }}">{{ 'admin'|trans }}</a></li>
+            <li><a href="{{ path('admin_page_index') }}">{{ 'page.show.all'|trans }}</a></li>
+            <li class="active">{{ 'page.create.pageTitle'|trans }}</li>
+        </ol>
+    </section>
+    <section class="content">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <div id="full_content">
+        {% block a2lix_translations_widget %}
+            <div class="a2lix_translations tabbable">
+                <ul class="a2lix_translationsLocales nav nav-tabs">
+                    {% for translationsFields in form.translations %}
+                        {% set locale = translationsFields.vars.name %}
+                        {% if app.request.locale == locale %}
+                            <li class="active">
+                        {% else %}
+                            <li>
+                        {% endif %}
+                        <a href="#" data-toggle="tab" data-target=".{{ translationsFields.vars.id }}_a2lix_translationsFields-{{ locale }}">
+                            {{ locale|capitalize }}
+                            {% if form.translations.vars.default_locale == locale %}
+                                [Default]
+                            {% endif %}
+                            {% if translationsFields.vars.required %}*{% endif %}
+                        </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div class="a2lix_translationsFields tab-content" style="background:#fff; border-top: 0; border-left: 1px solid #ddd;
+                             border-bottom: 1px solid #ddd; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd;">
+                    {% for translationsFields in form.translations %}
+                        {% set locale = translationsFields.vars.name %}
+                        <div class="row {{ translationsFields.vars.id }}_a2lix_translationsFields-{{ locale }} tab-pane {% if app.request.locale == locale %}active{% endif %}
+                                {% if not form.vars.valid %} sonata-ba-field-error{% endif %}">
+                            <br />
+                            {#<div class="col-md-12">#}
+                                {#<div class="col-md-6">#}
+                                    {#<div class="box box-warning" style="box-shadow: 0px 0px 0px">#}
+                                        {#<div class="box-header">#}
+                                        {#</div>#}
+                                        {#<div class="box-body">#}
+                                            {#<br />#}
+                                            {#<div class="form-group">#}
+                                                {#<label for="title">{{ 'title post'|trans }}</label>#}
+                                                {#{{ form_widget(translationsFields.title, {'attr':{'class':'form-control'}}) }}#}
+                                                {#{{ form_errors(translationsFields.title) }}#}
+                                            {#</div>#}
+                                        {#</div>#}
+                                    {#</div>#}
+                                {#</div>#}
+                            {#</div>#}
+                            <div class="col-md-12">
+                                {#<div class="col-md-6" id="section_1_1">#}
+                                    {#<div class="box box-warning" style="box-shadow: 0px 0px 0px">#}
+                                        {#<div class="box-header">#}
+                                            {#<h4 class="box-title">{{ 'Post'|trans }}</h4>#}
+                                        {#</div>#}
+                                        {#<div class="box-body">#}
+                                            {#<br />#}
+                                            {#<div class="form-group">#}
+                                                {#<label for="brief">{{ 'brief post'|trans }}</label>#}
+                                                {#{{ form_widget(translationsFields.brief, {'attr':{'class':'form-control'}}) }}#}
+                                                {#{{ form_errors(translationsFields.brief) }}#}
+                                            {#</div>#}
+                                        {#</div>#}
+                                    {#</div>#}
+                                {#</div>#}
+                                <div class="col-md-6">
+                                    <div class="box box-warning" style="box-shadow: 0px 0px 0px">
+                                        <div class="box-header">
+                                        </div>
+                                        <div class="box-body">
+                                            <br />
+                                            <div class="form-group">
+                                                <label for="title">{{ 'title post'|trans }}</label>
+                                                {{ form_widget(translationsFields.title, {'attr':{'class':'form-control'}}) }}
+                                                {{ form_errors(translationsFields.title) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" id="section_1_2">
+                                    <div class="box box-warning" style="box-shadow: 0px 0px 0px">
+                                        <div class="box-header">
+                                            <h4 class="box-title">{{ 'SEO'|trans }}</h4>
+                                        </div>
+                                        <div class="box-body">
+                                            <br />
+                                            <div class="form-group">
+                                                <label for="post">{{ 'SEO title'|trans }}</label>
+                                                {{ form_widget(translationsFields.seo_title, {'attr':{'class':'form-control'}}) }}
+                                                {{ form_errors(translationsFields.seo_title) }}
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="post">{{ 'SEO keyword'|trans }}</label>
+                                                {{ form_widget(translationsFields.seo_keyword, {'attr':{'class':'form-control'}}) }}
+                                                {{ form_errors(translationsFields.seo_keyword) }}
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="post">{{ 'SEO description'|trans }}</label>
+                                                {{ form_widget(translationsFields.seo_description, {'attr':{'class':'form-control'}}) }}
+                                                {{ form_errors(translationsFields.seo_description) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="section_1_3" class="col-lg-12" style="margin-top:0px;padding-top:0px;">
+                                    <div class="box-body" style="margin-top:0px;padding-top:0px;">
+                                        <div class="form-group">
+                                            <label for="post">{{ 'description post'|trans }}</label>
+                                            {{ form_widget(translationsFields.description, {'attr':{'class':'form-control','id':'editor1'}}) }}
+                                            {{ form_errors(translationsFields.description) }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="post">{{ 'alias post'|trans }}</label>
+                                            {{ form_widget(translationsFields.slug, {'attr':{'class':'form-control'}}) }}
+                                            {{ form_errors(translationsFields.slug) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endblock %}
+        <div class="well well-white-group row">
+            {#<div class="col-lg-3">#}
+                {#<div class="form-group">#}
+                    {#<label for="post">Фонове зображення</label>#}
+                    {#<div class="thumbnail well" style="width: 100%">#}
+                        {#{% if form.vars.value.path1 != '' %}#}
+                            {#<img id="previewImg1" src="/data/news/{{ form.vars.value.id }}/{{ form.vars.value.path1 }}"#}
+                                 {#class="img img-responsive" />#}
+                        {#{% else %}#}
+                            {#<img id="previewImg1" src="/bundles/app/admin/images/no-image.png" class="img img-responsive" />#}
+                        {#{% endif %}#}
+                        {#{{ form_widget(form.file1, {'attr':{'class':'form-control'}}) }}#}
+                        {#{{ form_errors(form.file1) }}#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="col-lg-3">#}
+                {#<div class="form-group">#}
+                    {#<label for="begin_date">{{ 'begin_date post'|trans }}</label>#}
+                    {#<div class="input-group date datepicker">#}
+                        {#{{ form_widget(form.begin_date, {'attr': {'class': 'form-control'} }) }}#}
+                        {#<span class="input-group-addon"><span class="glyphicon-calendar glyphicon"></span></span>#}
+                    {#</div>#}
+                    {#{{ form_errors(form.begin_date) }}#}
+                {#</div>#}
+            {#</div>#}
+        </div>
+
+        <div class="well well-white-group">
+            <button class="btn btn-flat btn-warning">
+                <i class="fa fa-save"></i>
+                {{ 'save'|trans }}
+            </button>
+            <a class="btn btn-flat btn-danger" href="{{ path('admin_page_index') }}">
+                <i class="fa fa-sign-out"></i>
+                {{ 'Відміна'|trans }}
+            </a>
+        </div>
+        </div>
+        {{ form_end(form) }}
+
+    </section>
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/blog/admin/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js') }}"></script>
+    <script src="{{ asset('bundles/blog/admin/js/tinymc_config.js') }}"></script>
+    <script src="{{ asset('bundles/blog/admin/js/select_category.js') }}"></script>
+    <script>
+
+        $('.datepicker').datetimepicker({
+            sideBySide: true,
+            locale: '{{ app.request.locale }}',
+            format: 'YYYY-MM-DD HH:mm'
+        });
+
+        $.fn.filestyle.defaults = {
+            'buttonText' : '&nbsp;&nbsp;&nbsp;&nbsp;Зображення',
+            'iconName' : 'glyphicon glyphicon-folder-open',
+            'buttonName' : 'btn-default changeBtn',
+            'size' : 'nr',
+            'input' : true,
+            'badge' : true,
+            'icon' : true,
+            'buttonBefore' : false,
+            'disabled' : false,
+            'placeholder': ''
+        };
+
+        $("#post_file1, #post_file2").filestyle({input: false});
+        $("#post_file1").change(function(){
+            $("#users_profile_change").val(new Date().getTime());
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#previewImg1').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    </script>
+{% endblock %}

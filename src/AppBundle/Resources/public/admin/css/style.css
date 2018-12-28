@@ -1,0 +1,34 @@
+.navbar.navbar-white-group{
+    background-color: #ffffff;
+    border-radius: 0px;
+    margin-bottom: 20px;
+}
+
+.well.well-white-group{
+    min-height: 20px;
+    padding: 19px;
+    background-color: #ffffff;
+    border-radius: 0px;
+    margin: 5px 0px;
+}
+
+.content-wrapper {
+    background-color: #fff;
+}
+
+.bootstrap-filestyle {
+    display:block;
+}
+.changeBtn {
+    width: 100%;
+    margin-top: 5px;
+}
+.bootstrap-filestyle {
+    display:block;
+}
+#add_new_button{
+    color: #fff;
+}
+#add_new_button:hover{
+    color: #000;
+}

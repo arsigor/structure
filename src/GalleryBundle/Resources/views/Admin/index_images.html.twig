@@ -1,0 +1,94 @@
+{% extends '::admin.html.twig' %}
+
+{% block style %}
+    {{ parent() }}
+    <link rel="stylesheet" media="screen" href="{{ asset('bundles/gallery/admin/css/jquery.fileuploader-theme-onebutton.css') }}" />
+    <link rel="stylesheet" media="screen" href="{{ asset('bundles/gallery/admin/css/jquery.fileuploader.css') }}" />
+    <link rel="stylesheet" media="screen" href="{{ asset('bundles/gallery/admin/css/gallery.css') }}" />
+{% endblock %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>{{ 'Galllery'|trans }}</h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ path('homepage') }}"><i class="fa fa-home"></i> {{ 'Home'|trans }}</a></li>
+            <li><a href="{{ path('admin') }}">{{ 'admin'|trans }}</a></li>
+            <li><a href="{{ path('admin_gallery') }}">{{ 'gallery.show.all.pageTitle'|trans }}</a></li>
+            <li class="active">{{ 'Galllery'|trans }}</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="well well-white-group">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            <div class="row">
+                <div class="col-sm-10">
+                    {{ form_widget(form.files, { 'attr': {'class': 'form-control multiple'} }) }}
+                </div>
+                <div class="col-sm-2 text-left" style="padding: 15px; margin: 15px 0">
+                    <button class="btn btn-flat btn-warning" style="padding: 9px "><i class="fa fa-upload"></i> {{ 'Upload'|trans }}</button>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+        <div class="row">
+
+            <div class="col-md-12">
+                {% if images is defined %}
+                    {% for i in images %}
+                        {% set path = '/data/images/gallery/'~i.path %}
+                        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 thumbnail-cell">
+                            <div class="thumbnail-action text-right">
+                                <a href="{{ path('admin_gallery_image_edit', {'id':i.id})}}"><i class="fa fa-edit"></i></a>&nbsp;
+                                <a href="{{ path('admin_gallery_image_remove', {'id':i.id})}}"><i class="fa fa-trash"></i></a>&nbsp;
+                            </div>
+                            <div data-toggle="modal" data-title="{{ i.title }}" data-image="{{ path }}" data-target="#image-gallery" class="thumbnail thumbnail-img-modal">
+                                <div class="thumbnail-img-cell">
+                                    <img src="{{ path|imagine_filter('admin_thumb_create') }}" class="img img-responsive thumbnail-img"/>
+                                </div>
+                                <h6 class="text-center"><small>{% if i.title != null %}{{ i.title }}{% else %}&nbsp;{% endif %}</small></h6>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="col-md-12">
+                {% set url = (path(app.request.get('_route'), {'id': 5, 'page': 1 ,'perpage':  0})) %}
+                {% include '::admin_patrials/perpage.html.twig' with {'url': url } %}
+                {% block sub%}{% endblock %}
+                <div class="navigation text-center">
+                    {{ knp_pagination_render(images) }}
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal fade" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="image-gallery-title"></h4>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="image-gallery-image" class="img-responsive thumbnail-img" src="">
+                </div>
+                <div class="modal-footer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="fa fa-link"></span></span>
+                        <input type="text" id="image-gallery-url" class="form-control">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/gallery/admin/js/jquery.fileuploader.js') }}"></script>
+    <script src="{{ asset('bundles/gallery/admin/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js') }}"></script>
+    <script src="{{ asset('bundles/gallery/admin/js/multi_upload.js') }}"></script>
+    <script src="{{ asset('bundles/gallery/admin/js/file_uploader_tinymc_select.js') }}"></script>
+    <script src="{{ asset('bundles/gallery/admin/js/multi_upload_custom.js') }}"></script>
+{% endblock %}

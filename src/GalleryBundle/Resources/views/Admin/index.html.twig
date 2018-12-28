@@ -1,0 +1,87 @@
+{% extends '::admin.html.twig' %}
+
+{% block body %}
+
+    <section class="content-header">
+        <h1>{{ 'gallery.show.all.pageTitle'|trans }}</h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ path('homepage') }}"><i class="fa fa-home"></i> {{ 'Home'|trans }}</a></li>
+            <li><a href="{{ path('admin') }}">{{ 'admin'|trans }}</a></li>
+            <li class="active">{{ 'gallery.show.all.pageTitle'|trans }}</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="box box-warning">
+            <div class="box-header with-border">
+                <div class="col-md-7">
+                    <a href="{{ path('admin_gallery_create') }}" id="add_new_button" class="btn btn-sm btn-warning btn-flat">
+                        <i class="fa fa-plus-circle"></i> {{ 'Add new'|trans }}
+                    </a>
+                </div>
+                <div class="col-md-5">
+                    {% include '::admin_patrials/perpage.html.twig' %}
+                </div>
+            </div>
+        </div>
+        <div class="box box-warning">
+            <div class="box-header">
+                <h3 class="box-title"></h3>
+                <div class="box-tools">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tr>
+                        <th>{{ 'ID'|trans }}</th>
+                        <th>{{ 'Title'|trans }}</th>
+                        {#<th>{{ 'Organisation'|trans }}</th>#}
+                        <th>{{ 'Creation'|trans }}</th>
+                        <th>{{ 'Modify'|trans }}</th>
+                        <th>{{ 'Image'|trans }}</th>
+                        <th>{{ 'Count images'|trans }}</th>
+                        <th class="text-right">{{ 'Action'|trans }}</th>
+                    </tr>
+                    {% for g in gallery %}
+                        <tr>
+                            <td>{{ g.id }}</td>
+                            <td>{{ g.title }}</td>
+                            <td>{{ g.creation|date("d-m-Y H:i") }}</td>
+                            <td>{{ g.modify|date("d-m-Y H:i") }}</td>
+                            <td>
+                                {% if g.path != NULL and g.path != '' %}
+                                    {% set path = '/data/images/gallery/'~g.path %}
+                                    <img src="{{ path|imagine_filter('admin_thumb_index') }}" class="img img-resposive img-thumbnail" />
+                                {% else %}
+                                    <img src="/bundles/app/admin/images/no-image.jpg" class="img img-resposive" style="max-width: 20px; max-height: 20px;" />
+                                {% endif %}
+                            </td>
+                            <td><span class="label label-warning">{{ g.images|length }}</span></td>
+                            <td class="text-right" style="min-width: 100px">
+                                <a href="{{ path('admin_gallery_images', {'id':g.id}) }}" class="btn btn-sm btn-warning btn-flat">
+                                    <span class="fa fa-upload"></span>
+                                </a>
+                                <a href="{{ path('admin_gallery_edit', {id:g.id}) }}" class="btn btn-sm btn-success btn-flat">
+                                    <span class="fa fa-edit"></span>
+                                </a>
+                                <a href="{{ path('admin_gallery_remove', {id:g.id}) }}" onclick="return confirm('Видалити галерею?');" class="btn btn-sm btn-danger btn-flat">
+                                    <span class="fa fa-trash"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </section>
+    <div class="col-md-12">
+        {% block sub%}{% endblock %}
+        <div class="navigation text-center">
+            {{ knp_pagination_render(gallery) }}
+        </div>
+    </div>
+{% endblock %}

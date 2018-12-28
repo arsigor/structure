@@ -1,0 +1,33 @@
+{% block sub %}
+    <style>
+        .groupTopBottomBorder{
+            margin-top: 0px;
+            border-top: 1px solid;
+            border-bottom: 1px solid;
+            padding: 10px 0px;
+            border-color: #e3e3e3;
+        }
+    </style>
+    {% set perpage_array = container.parameter('perpage') %}
+    <div class="groupTopBottomBorder text-right">
+        Perpage:
+        <select id="perpage" class="input-sm">
+            {% for pp in perpage_array %}
+                {% if perpage == pp %}
+                    <option value={{ pp }} selected="selected">{{ pp }}</option>
+                {% else %}
+                    <option value={{ pp }}>{{ pp }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+
+    {% if url is not defined %}
+        {% set url = (path(app.request.get('_route'), {'page': 1 ,'perpage':  0})) %}
+    {% endif %}
+
+    <script>
+        var url = '{{ url }}';
+    </script>
+
+{% endblock%}

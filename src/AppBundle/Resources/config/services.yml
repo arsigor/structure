@@ -1,0 +1,30 @@
+services:
+    app.menu_builder:
+        class: AppBundle\Menu\MenuBuilder
+        arguments: ["@knp_menu.factory"]
+        tags:
+            - { name: knp_menu.menu_builder, method: createMainMenu, alias: main }
+
+    app.contents.form.type.em:
+        class: AppBundle\Form\Type\ContentsType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+
+    app.profile.form.type.customer.em:
+        class: AppBundle\Form\Type\CustomerProfileFormType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+
+    app.profile.form.type.advertiser.em:
+        class: AppBundle\Form\Type\AdvertiserProfileFormType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+
+    app.city.form.type.em:
+            class: AppBundle\Form\Type\CityFormType
+            arguments: ["@doctrine.orm.entity_manager"]
+            tags:
+                - { name: form.type }

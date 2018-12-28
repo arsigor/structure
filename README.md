@@ -1,0 +1,4 @@
+TestStructure
+==========
+
+A Symfony project

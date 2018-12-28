@@ -1,0 +1,69 @@
+{% extends '::base.html.twig' %}
+
+{% block style %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header %}
+    <div class="top_green_block">
+        <h1 class="text-center">ТУРИ</h1>
+    </div>
+{% endblock %}
+
+{% block body %}
+    {% if posts is defined %}
+        <section id="tours">
+            <div class="container">
+                <div class="tours_item">
+                    <div>
+                        <div class="row">
+                            {% for tour in posts %}
+                                <div class="col-md-6">
+                                    <div class="border_post_slider" style="margin: 20px">
+
+                                        <div class="col-xs-6 col-md-6">
+                                            <div class="caption">
+                                                <p>27.05.2018</p>
+                                                <h4><b>{{ tour.title }}</b></h4>
+                                                <p class="tours_duration"><b>Тривалість: {{ tour.duration }}</b></p>
+                                                <p class="placetype"><b>Місце/Тип: {{ tour.placetype }}</b></p>
+                                                {% if tour.discount %}
+                                                    <s><h5 class="tour_price_to_discount"><b>{{ tour.price }} грн</b></h5></s>
+                                                    <h4 class="tours_pricediscount"><b>{{ tour.pricediscount }} грн</b></h4>
+                                                {% else %}
+                                                    <h4 class="tour_price"><b>{{ tour.price }} грн</b></h4>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-6 col-md-6" style="padding-right: 0;">
+                                            {% if tour.discount %}
+                                                <img  class="tours_discount" src="/bundles/app/base/images/discount.svg">
+                                            {% endif %}
+                                            {% if tour.translatable.path1 != '' %}
+                                                {% set path = '/data/news/'~tour.translatable.id~'/'~tour.translatable.path1 %}
+                                                <img src="{{ path }}">
+                                            {% else %}
+                                                <img src="/bundles/app/base/images/no-image.png">
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="bottom-pagination">
+            <div id="index-posts" class="navigation text-center">
+                {{ knp_pagination_render(posts) }}
+            </div>
+        </div>
+    {% endif %}
+    {{ render(controller('AppBundle:BaseNews:index')) }}
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+{% endblock %}

@@ -1,0 +1,33 @@
+users:
+    resource: "@UsersBundle/Resources/config/routing.yml"
+    prefix:   /
+
+sitemap:
+    resource: "@SitemapBundle/Resources/config/routing.yml"
+    prefix:   /
+
+page:
+    resource: "@PageBundle/Resources/config/routing.yml"
+    prefix:   /
+
+menu:
+    resource: "@MenuBundle/Resources/config/routing.yml"
+    prefix:   /
+
+gallery:
+    resource: "@GalleryBundle/Resources/config/routing.yml"
+    prefix:   /
+
+blog:
+    resource: "@BlogBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Resources/config/routing.yml"
+    prefix:   /
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"

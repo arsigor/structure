@@ -1,0 +1,75 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% if error %}
+    <div class="container" style="margin: 7% auto">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="alert alert-danger alert-dismissible">
+                    <a href="{{ path('homepage') }}" type="button" class="close" data-dismiss="alert" aria-hidden="true">×</a>
+                    <h4><i class="icon fa fa-check"></i>Message</h4>
+                    Login failed
+                    {#{{ error.messageKey|trans(error.messageData, 'security') }}#}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+<div class="login-box">
+    <div class="login-logo">
+        <a href="{{ path('homepage') }}">Sciamanesimo</a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+        <p class="login-box-msg">Sign in to start the session</p>
+
+        <form action="{{ path("fos_user_security_check") }}" method="post" class="main-form">
+            <div class="form-group has-feedback">
+                <input type="text" class="form-control" placeholder="Логін" required="required" name="_username">
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" class="form-control" placeholder="Пароль" required="required" name="_password">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+            <div class="row">
+                <div class="col-xs-8">
+                    <div class="checkbox icheck">
+                        <label>
+                            <input type="checkbox">
+                            Remember me
+                        </label>
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-xs-4">
+                    <button type="submit" class="btn btn-warning btn-block btn-flat">Sign in</button>
+                </div>
+                <!-- /.col -->
+            </div>
+        </form>
+        <a href="{{ path('fos_user_resetting_request') }}">
+            Remind password
+        </a>
+        <br>
+        <a href="{{ path('fos_user_registration_register') }}">
+            Register now
+        </a>
+        <div class="collapse" id="lost-password__form">
+            <form action="{{ path('fos_user_resetting_send_email') }}" method="post" class="main-form" role="form">
+                <div class="form-group has-feedback">
+                    <input type="email" class="form-control" placeholder="example@mail.com" required="required" name="_password">
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8"></div>
+                    <div class="col-xs-4">
+                        <button type="submit" class="btn btn-warning btn-block btn-flat">Надіслати</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- /.login-box-body -->
+</div>
+<!-- /.login-box -->

@@ -1,0 +1,76 @@
+# LEVEL
+admin_level_index:
+    path:     /admin/level/{page}/{perpage}
+    defaults: { _controller: BlogBundle:AdminLevel:index, page: 1, perpage: %perpage_admin% }
+    requirements:
+        page: \d+
+        perpage: \d+
+
+admin_level_create:
+    path:     /admin/level/create/new
+    defaults: { _controller: BlogBundle:AdminLevel:create }
+
+admin_level_edit:
+    path:     /admin/level/edit/{id}
+    defaults: { _controller: BlogBundle:AdminLevel:edit }
+    requirements:
+        id: \d+
+
+admin_level_delete:
+    path:     /admin/level/delete/{id}
+    defaults: { _controller: BlogBundle:AdminLevel:delete }
+    requirements:
+        id: \d+
+
+admin_search_levels:
+    path:     /admin/level/search/levels
+    defaults: { _controller: BlogBundle:AdminLevel:searchLevels }
+
+# CATEGORY
+admin_category_index:
+    path:     /admin/category/{page}/{perpage}
+    defaults: { _controller: BlogBundle:AdminCategory:index, page: 1, perpage: %perpage_admin% }
+    requirements:
+        page: \d+
+        perpage: \d+
+
+admin_category_create:
+    path:     /admin/category/create/new
+    defaults: { _controller: BlogBundle:AdminCategory:create }
+
+admin_category_edit:
+    path:     /admin/category/edit/{id}
+    defaults: { _controller: BlogBundle:AdminCategory:edit }
+    requirements:
+        id: \d+
+
+admin_category_delete:
+    path:     /admin/category/delete/{id}
+    defaults: { _controller: BlogBundle:AdminCategory:delete }
+    requirements:
+        id: \d+
+
+# POST
+admin_blog_posts:
+    path:     /admin/blog/posts/{page}/{perpage}/{category_id}
+    defaults: { _controller: BlogBundle:AdminPost:posts, page: 1, perpage: %perpage_admin%, category_id: null }
+    requirements:
+        page: \d+
+        perpage: \d+
+        category_id: \d+
+
+admin_blog_post_create:
+    path:     /admin/blog/post/create
+    defaults: { _controller: BlogBundle:AdminPost:postCreate }
+
+admin_blog_post_edit:
+    path:     /admin/blog/post/edit/{id}
+    defaults: { _controller: BlogBundle:AdminPost:postEdit }
+    requirements:
+        page: \d+
+
+admin_blog_post_delete:
+    path:     /admin/blog/post/delete/{id}
+    defaults: { _controller: BlogBundle:AdminPost:postRemove }
+    requirements:
+        page: \d+

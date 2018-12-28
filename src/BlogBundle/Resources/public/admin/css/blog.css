@@ -1,0 +1,10 @@
+.thumbnail-img{
+    display: inline-block;
+}
+.thumbnail-img-cell{
+    height: 120px;
+    text-align:center;
+}
+.thumbnail-cell:hover .thumbnail{
+    border-color: #3C8DBC;
+}

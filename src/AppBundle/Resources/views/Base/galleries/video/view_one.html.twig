@@ -1,0 +1,49 @@
+{% extends '::base.html.twig' %}
+
+{% block style %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header %}
+    <div class="top_green_block">
+        <h1 class="text-center">{{ video.title }}</h1>
+    </div>
+{% endblock %}
+
+{% block body %}
+    {% if video is defined %}
+        <section id="news_detail">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="single-article-info" style="color: #3a7130">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            {{ video.translatable.creation|date('d.m.Y') }}
+                        </div>
+                        {% if video != null %}
+                            <!-- 16:9 aspect ratio -->
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" src="http://www.youtube.com/embed/{{ iframe }}"></iframe>
+                            </div>
+                        {% else %}
+                            Error
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr>
+                        <div class="text">{{ video.description|raw }}</div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+{% endblock %}

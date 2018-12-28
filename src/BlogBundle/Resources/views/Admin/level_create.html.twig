@@ -1,0 +1,78 @@
+{% extends '::admin.html.twig' %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>{{ 'blog.level.create.pageTitle'|trans }}</h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ path('homepage') }}"><i class="fa fa-home"></i> {{ 'Home'|trans }}</a></li>
+            <li><a href="{{ path('admin') }}">{{ 'admin'|trans }}</a></li>
+            <li><a href="{{ path('admin_category_index') }}">{{ 'category.show.all'|trans }}</a></li>
+            <li class="active">{{ 'blog.level.create.pageTitle'|trans }}</li>
+        </ol>
+    </section>
+    <section class="content">
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-warning">
+                    <div class="box-header">
+                        <h4 class="box-title">{{ 'Level'|trans }}</h4>
+                    </div>
+                    <div class="box-body">
+                        {% block a2lix_translations_widget %}
+                            {{ form_errors(form) }}
+                            <div class="a2lix_translations tabbable">
+                                <ul class="a2lix_translationsLocales nav nav-tabs">
+                                    {% for translationsFields in form.translations %}
+                                        {% set locale = translationsFields.vars.name %}
+                                        {% if app.request.locale == locale %}<li class="active">{% else%}<li>{% endif %}
+                                        <a href="#" data-toggle="tab" data-target=".{{ translationsFields.vars.id }}_a2lix_translationsFields-{{ locale }}">
+                                            {{ locale|capitalize }}
+                                            {% if form.translations.vars.default_locale == locale %}[Default]{% endif %}
+                                            {% if translationsFields.vars.required %}*{% endif %}
+                                        </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                                <div class="a2lix_translationsFields tab-content"
+                                     style="background:#fff; border-top: 0; border-left: 1px solid #ddd;
+                             border-bottom: 1px solid #ddd; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd;">
+                                    {% for translationsFields in form.translations %}
+                                        {% set locale = translationsFields.vars.name %}
+                                        <div class="{{ translationsFields.vars.id }}_a2lix_translationsFields-{{ locale }}
+                                tab-pane {% if app.request.locale == locale %}active{% endif %}
+                                {% if not form.vars.valid %} sonata-ba-field-error{% endif %}">
+                                            {{ form_widget(translationsFields.translatable_id) }}
+                                            <div style="padding: 20px;">
+                                                <div class="form-group">
+                                                    <label for="title">{{ 'Title level'|trans }}</label>
+                                                    {{ form_widget(translationsFields.title, {'attr':{'class':'form-control'}}) }}
+                                                    {{ form_errors(translationsFields.title) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="well well-white-group">
+            <button class="btn btn-flat btn-warning">
+                <i class="fa fa-save"></i>
+                {{ 'save'|trans }}
+            </button>
+            <a class="btn btn-flat btn-danger" href="{{ path('admin_category_index') }}">
+                <i class="fa fa-sign-out"></i>
+                {{ 'Відміна'|trans }}
+            </a>
+        </div>
+        {{ form_end(form) }}
+    </section>
+
+{% endblock %}
+{% block script %}
+    {{ parent() }}
+{% endblock %}

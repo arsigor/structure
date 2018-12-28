@@ -1,0 +1,25 @@
+#ADMIN
+admin_users_view_all:
+    path:     /admin/users/view/{page}/{perpage}
+    defaults: { _controller: UsersBundle:AdminUser:index, page: 1, perpage: %perpage_admin% }
+    requirements:
+            page: \d+
+            perpage: \d+
+
+admin_user_edit:
+    path:     /admin/user/edit/{id}
+    defaults: { _controller: UsersBundle:AdminUser:edit, id:0 }
+    requirements:
+        id: \d+
+
+admin_user_delete:
+    path:     /admin/user/delete/{id}
+    defaults: { _controller: UsersBundle:AdminUser:delete, id:0 }
+    requirements:
+        id: \d+
+
+admin_user_delete_photo:
+    path:     /admin/user/photo/delete/{id}
+    defaults: { _controller: UsersBundle:AdminUser:deletePhoto, id:0 }
+    requirements:
+        id: \d+

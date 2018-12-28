@@ -1,0 +1,111 @@
+{% extends '::admin.html.twig' %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>{{ 'page.create.pageTitle' }}</h1>
+            <ol class="breadcrumb">
+                <li><a href="{{ path('homepage') }}"><i class="fa fa-home"></i> {{ 'Home'|trans }}</a></li>
+                <li><a href="{{ path('admin') }}">{{ 'admin'|trans }}</a></li>
+                <li><a href="{{ path('page') }}">{{ 'page.show.all'|trans }}</a></li>
+                <li class="active">{{ 'page.create' }}</li>
+            </ol>
+        </section>
+        <section class="content">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            {% block a2lix_translations_widget %}
+                <div class="a2lix_translations tabbable">
+                    <ul class="a2lix_translationsLocales nav nav-tabs">
+                        {% for translationsFields in form.translations %}
+                            {% set locale = translationsFields.vars.name %}
+                            {% if app.request.locale == locale %}
+                                <li class="active">
+                            {% else %}
+                                <li>
+                            {% endif %}
+                            <a href="#" data-toggle="tab" data-target=".{{ translationsFields.vars.id }}_a2lix_translationsFields-{{ locale }}">
+                                {{ locale|capitalize }}
+                                {% if form.translations.vars.default_locale == locale %}
+                                    [Default]
+                                {% endif %}
+                                {% if translationsFields.vars.required %}*{% endif %}
+                            </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="a2lix_translationsFields tab-content" style="background:#fff; border-top: 0; border-left: 1px solid #ddd;
+                             border-bottom: 1px solid #ddd; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd;">
+                            {% for translationsFields in form.translations %}
+                                {% set locale = translationsFields.vars.name %}
+                                <div class="row {{ translationsFields.vars.id }}_a2lix_translationsFields-{{ locale }} tab-pane {% if app.request.locale == locale %}active{% endif %}
+                                    {% if not form.vars.valid %} sonata-ba-field-error{% endif %}">
+                                    <br />
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <div class="box box-primary" style="box-shadow: 0px 0px 0px">
+                                                <div class="box-header">
+                                                    <h4 class="box-title">Post</h4>
+                                                </div>
+                                                <div class="box-body">
+                                                    <br />
+                                                    <div class="form-group">
+                                                        <label for="title">{{ form_label(translationsFields.title) }}</label>
+                                                        {{ form_widget(translationsFields.title, {'attr':{'class':'form-control'}}) }}
+                                                        {{ form_errors(translationsFields.title) }}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="post">{{ form_label(translationsFields.description) }}</label>
+                                                        {{ form_widget(translationsFields.description, {'attr':{'class':'form-control'}}) }}
+                                                        {{ form_errors(translationsFields.description) }}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="post">{{ form_label(translationsFields.slug) }}</label>
+                                                        {{ form_widget(translationsFields.slug, {'attr':{'class':'form-control'}}) }}
+                                                        {{ form_errors(translationsFields.slug) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                                <div class="box box-primary" style="box-shadow: 0px 0px 0px">
+                                                    <div class="box-header">
+                                                        <h4 class="box-title">SEO</h4>
+                                                    </div>
+                                                    <div class="box-body">
+                                                        <br />
+                                                        <div class="form-group">
+                                                            <label for="post">{{ form_label(translationsFields.seo_title) }}</label>
+                                                            {{ form_widget(translationsFields.seo_title, {'attr':{'class':'form-control'}}) }}
+                                                            {{ form_errors(translationsFields.seo_title) }}
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="post">{{ form_label(translationsFields.seo_keyword) }}</label>
+                                                            {{ form_widget(translationsFields.seo_keyword, {'attr':{'class':'form-control'}}) }}
+                                                            {{ form_errors(translationsFields.seo_keyword) }}
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="post">{{ form_label(translationsFields.seo_description) }}</label>
+                                                            {{ form_widget(translationsFields.seo_description, {'attr':{'class':'form-control'}}) }}
+                                                            {{ form_errors(translationsFields.seo_description) }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                    </div>
+                </div>
+            {% endblock %}
+            <div class="well well-white-group">
+                <button class="btn btn-success">
+                    <i class="fa fa-save"></i>
+                    Save
+                </button>
+            </div>
+            {{ form_end(form) }}
+        </section>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+menu:
+    path:     /menu/{page}/{perpage}
+    defaults: { _controller: MenuBundle:Default:menuItems, page: 1, perpage: %perpage_admin% }
+    requirements:
+        page: \d+
+        perpage: \d+
+
+menu_route:
+    path:     /menu/routes/{page}/{perpage}
+    defaults: { _controller: MenuBundle:Default:menuItemRoute, page: 1, perpage: %perpage_admin% }
+    requirements:
+        page: \d+
+        perpage: \d+
+
+menu_create:
+    path:     /menu/create/{id}
+    defaults: { _controller: MenuBundle:Default:menuItemCreate, id: null }
+    requirements:
+        page: \d+
+
+menu_edit:
+    path:     /menu/edit/{id}
+    defaults: { _controller: MenuBundle:Default:menuItemEdit }
+    requirements:
+        page: \d+
+
+menu_delete:
+    path:     /menu/delete/{id}
+    defaults: { _controller: MenuBundle:Default:menuItemRemove }
+    requirements:
+        page: \d+

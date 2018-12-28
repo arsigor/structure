@@ -1,0 +1,40 @@
+.navbar-brand{
+    min-height: 15px;
+    padding: 0 15px 5px;
+}
+.navbar-brand>img {
+    margin: 0;
+    padding: 0;
+    max-height: 50px;
+    height: auto;
+    overflow: auto;
+}
+.content {
+    min-height: 0;
+    padding: 0;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 0;
+    padding-right: 0;
+}
+.main-footer{
+    background-color: #02bab0;
+    color: #fff
+}
+.content-wrapper, .right-side{
+    background-color: #ffffff;
+}
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus{
+    background-color: #02bab0;
+}
+.box.box-success {
+    border-top-color: #02bab0;
+}
+.custom-color-text{
+    color: #02bab0;
+}

@@ -1,0 +1,79 @@
+{% extends '::admin.html.twig' %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>{{ 'menu.route.show'|trans }}</h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ path('homepage') }}"><i class="fa fa-home"></i> {{ 'Home'|trans }}</a></li>
+            <li><a href="{{ path('admin') }}">{{ 'admin'|trans }}</a></li>
+            <li><a href="{{ path('menu') }}">{{ 'menu.item.show.pageTitle'|trans }}</a></li>
+            <li class="active">{{ 'menu.route.show'|trans }}</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="box box-warning">
+            <div class="box-header with-border">
+                <div class="col-md-9">
+                    <a class="btn btn-flat btn-danger" href="{{ path('menu') }}">
+                        <i class="fa fa-sign-out"></i>
+                        Відміна
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    {% include '::admin_patrials/perpage.html.twig' %}
+                </div>
+            </div>
+        </div>
+        <div class="box box-warning">
+            <div class="box-header">
+                <h3 class="box-title"></h3>
+                <div class="box-tools">
+                    <div class="input-group">
+                    {{ form_start(form, {'attr' : {'class' : 'input-group input-group-sm input-flat'}}) }}
+                    {{ form_errors(form) }}
+                    {{ form_widget(form.module, {'attr' : {'class' : 'form-control'}}) }}
+                    {{ form_errors(form.module) }}
+                        <button type="submit" class="btn btn-sm btn-flat btn-warning"><i class="fa fa-search"></i></button>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tr>
+                        <th>Модуль</th>
+                        <th>Шлях</th>
+                        <th>Ідентифікатор</th>
+                        <th>Псевдонім URL</th>
+                        <th class="text-right">Дія</th>
+                    </tr>
+                    {% for r in routes %}
+                        <tr>
+                            <td>{{ r.module }}</td>
+                            <td>{{ r.route }}</td>
+                            <td>{{ r.paramId }}</td>
+                            <td>{{ r.paramSlug }}</td>
+                            <td class="text-right">
+                                <a href="{{ path('menu_create', {id:r.id}) }}" class="btn btn-sm btn-flat btn-warning">
+                                    <span class="fa fa-plus"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </section>
+    {% block sub%}{% endblock %}
+    <div class="navigation text-center">
+        {{ knp_pagination_render(routes) }}
+    </div>
+    <style>
+        #route_module{
+            width: 200px;
+        }
+    </style>
+{% endblock %}

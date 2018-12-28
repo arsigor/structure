@@ -1,0 +1,129 @@
+{% extends '::admin.html.twig' %}
+
+{% block body %}
+
+    {% macro recursiveChildCategory(parent) %}
+        {% import _self as macro %}
+        {% if parent.childrens|length %}
+            {% for c in parent.childrens %}
+                <tr>
+                    <td><span class="label label-warning">{{ c.number }}</span></td>
+                    <td>
+
+                        {% if c.parent|length > 0 %}
+                            {% set path = ['Main'] %}
+                            {{ macro.recursiveParentCategory(c,path) }}
+                        {% else %}
+                            Main
+                        {% endif %}
+
+                    </td>
+                    <td>{{ c.title }}</td>
+                    <td>{% if c.route != null %}{{ c.route.route }}{% endif %}</td>
+                    <td>{% if c.route != null %}{{ c.route.paramid }}{% endif %}</td>
+                    <td>{% if c.route != null %}{{ c.route.paramslug }}{% endif %}</td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <a href="{{ path('menu_edit', {id:c.id}) }}" class="btn btn-sm btn-success btn-flat">
+                                <span class="fa fa-edit"></span>
+                            </a>
+                            <a href="{{ path('menu_delete', {id:c.id}) }}" onclick="return confirm('Remove menu item?');" class="btn btn-sm btn-danger btn-flat">
+                                <span class="fa fa-trash"></span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {{ macro.recursiveChildCategory(c.translatable) }}
+            {% endfor %}
+        {% endif %}
+    {% endmacro recursiveChildCategory %}
+
+    {% macro recursiveParentCategory(item,path) %}
+        {% import _self as macro %}
+        {% if item.parent|length %}
+            {% set path = path|merge([(item.translatable.parent.title)]) %}
+            {{ macro.recursiveParentCategory(item.translatable.parent,path) }}
+        {% else %}
+            {{ path|join(', ') }}
+        {% endif %}
+    {% endmacro recursiveParentCategory %}
+
+
+    <section class="content-header">
+        <h1>{{ 'menu.item.show.pageTitle'|trans }}</h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ path('homepage') }}"><i class="fa fa-home"></i> {{ 'Home'|trans }}</a></li>
+            <li><a href="{{ path('admin') }}">{{ 'admin'|trans }}</a></li>
+            <li class="active">{{ 'menu.item.show.pageTitle'|trans }}</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="box box-warning">
+            <div class="box-header with-border">
+                <div class="col-md-9">
+                    <a href="{{ path('menu_create') }}" id="add_new_button" class="btn btn-sm btn-warning btn-flat">
+                        <i class="fa fa-plus-circle"></i> {{ 'Add group element'|trans }}
+                    </a>
+                    <a href="{{ path('menu_route') }}" id="add_new_button" class="btn btn-sm btn-warning btn-flat">
+                        <i class="fa fa-plus-circle"></i> {{ 'Add route'|trans }}
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    {% include '::admin_patrials/perpage.html.twig' %}
+                </div>
+            </div>
+        </div>
+        <div class="box box-warning">
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tr>
+                        <th>{{ 'ID'|trans }}</th>
+                        <th>{{ 'Parent'|trans }}</th>
+                        <th>{{ 'Items'|trans }}</th>
+                        <th>{{ 'Routes'|trans }}</th>
+                        <th>{{ 'parent_id'|trans }}</th>
+                        <th>{{ 'alias'|trans }}</th>
+                        <th class="text-right">{{ 'Action'|trans }}</th>
+                    </tr>
+                    {% for i in items %}
+                        <tr>
+                            <td>{{ i.number }}</td>
+                            <td>
+                                {% if i.parent|length > 0 %}
+                                    {% set path = ['main'] %}
+                                    {% import _self as macro %}
+                                    {{ macro.recursiveParentCategory(i,path) }}
+                                {% else %}
+                                    Main
+                                {% endif %}
+                            </td>
+                            <td>{{ i.title }}</td>
+                            <td>{% if i.route != null %}{{ i.route.route }}{% endif %}</td>
+                            <td>{% if i.route != null %}{{ i.route.paramid }}{% endif %}</td>
+                            <td>{% if i.route != null %}{{ i.route.paramslug }}{% endif %}</td>
+                            <td class="text-right">
+                                <a href="{{ path('menu_edit', {id:i.id}) }}" class="btn btn-sm btn-success btn-flat">
+                                    <span class="fa fa-edit"></span>
+                                </a>
+                                <a href="{{ path('menu_delete', {id:i.id}) }}" onclick="return confirm('Видалити пункт меню?');" class="btn btn-sm btn-danger btn-flat">
+                                    <span class="fa fa-trash"></span>
+                                </a>
+                            </td>
+                        </tr>
+                        {% import _self as macro %}
+                        {{ macro.recursiveChildCategory(i.translatable) }}
+                    {% endfor %}
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </section>
+    <div class="col-md-12">
+        {% block sub%}{% endblock %}
+        <div class="navigation text-center">
+            {{ knp_pagination_render(items) }}
+        </div>
+    </div>
+{% endblock %}

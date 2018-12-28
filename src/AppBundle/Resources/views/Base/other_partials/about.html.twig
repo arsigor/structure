@@ -1,0 +1,36 @@
+{% extends '::base.html.twig' %}
+
+{% block style %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header %}
+    <div class="top_green_block">
+        <h1 class="text-center">ПРО НАС</h1>
+    </div>
+{% endblock %}
+
+{% block body %}
+    {% if about != [] %}
+        <section id="about">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5">
+                        {% if about.translatable.path != '' %}
+                            {% set path = '/data/abouts/'~about.translatable.id~'/'~about.translatable.path %}
+                            <img class="img-responsive" src="{{ path }}">
+                        {% endif %}
+                    </div>
+                    <div>
+                        <div class="text-justify">{{ about.description|raw }}</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+    {{ render(controller('AppBundle:BaseNews:index')) }}
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+{% endblock %}

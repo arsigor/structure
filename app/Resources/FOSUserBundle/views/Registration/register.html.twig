@@ -1,0 +1,44 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% block style %}
+    {{ parent() }}
+    <link rel="stylesheet" media="screen" href="{{ asset('bundles/app/admin/js/plugins/datepicker/datepicker3.css') }}" />
+{% endblock %}
+
+{% block fos_user_content %}
+    {% include "@FOSUser/Registration/register_content.html.twig" %}
+{% endblock fos_user_content %}
+
+{% block script %}
+    {{ parent() }}
+    <script>
+        $('#fos_user_registration_form_birthday').datepicker({
+            format: 'yyyy-mm-dd',
+            locale: '{{ app.request.locale }}',
+            autoclose: true
+        });
+        $.fn.filestyle.defaults = {
+            'buttonText' : '&nbsp;&nbsp;&nbsp;&nbsp;Зображення',
+            'iconName' : 'glyphicon glyphicon-folder-open',
+            'buttonName' : 'btn-warning btn-flat changeBtn',
+            'size' : 'nr',
+            'input' : true,
+            'badge' : true,
+            'icon' : true,
+            'buttonBefore' : false,
+            'disabled' : false,
+            'placeholder': ''
+        };
+        $("#fos_user_registration_form_file").filestyle({input: false});
+        $("#fos_user_registration_form_file").change(function(){
+            $(".previewImg").val(new Date().getTime());
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('.previewImg').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    </script>
+{% endblock %}

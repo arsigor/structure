@@ -1,0 +1,79 @@
+<link rel="stylesheet" media="screen" href="{{ asset('bundles/app/base/libs/slick/slick.css') }}" />
+<link rel="stylesheet" media="screen" href="{{ asset('bundles/app/base/libs/slick/slick-theme.css') }}" />
+{% if tours != [] %}
+    <section id="tours">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="text-center">Тури</h2>
+                </div>
+            </div>
+            <div class="tours_item">
+                {% for tour in tours %}
+                    <div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="border_post_slider">
+
+                                    <div class="col-xs-6 col-md-6">
+                                        <div class="caption">
+                                            <p>27.05.2018</p>
+                                            <h4><b>{{ tour.title }}</b></h4>
+                                            <p class="tours_duration"><b>Тривалість: {{ tour.duration }}</b></p>
+                                            <p class="placetype"><b>Місце/Тип: {{ tour.placetype }}</b></p>
+                                            {% if tour.discount %}
+                                                <s><h5 class="tour_price_to_discount"><b>{{ tour.price }} грн</b></h5></s>
+                                                <h4 class="tours_pricediscount"><b>{{ tour.pricediscount }} грн</b></h4>
+                                            {% else %}
+                                                <h4 class="tour_price"><b>{{ tour.price }} грн</b></h4>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-6 col-md-6" style="padding-right: 0;">
+                                        {% if tour.discount %}
+                                            <img  class="tours_discount" src="/bundles/app/base/images/discount.svg">
+                                        {% endif %}
+                                        {% if tour.translatable.path1 != '' %}
+                                            {% set path = '/data/news/'~tour.translatable.id~'/'~tour.translatable.path1 %}
+                                            <img src="{{ path }}">
+                                        {% else %}
+                                            <img src="/bundles/app/base/images/no-image.png">
+                                        {% endif %}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <script src="{{ asset('bundles/app/base/js/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/base/libs/slick/slick.min.js') }}"></script>
+    <script>
+        ScreenWidth = screen.width;
+        if(ScreenWidth <= 768){
+            $('.tours_item').slick({
+                dots: true,
+                arrows: false,
+                rows: 2,
+                speed: 300,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                adaptiveHeight: true
+            });
+        }else {
+            $('.tours_item').slick({
+                dots: true,
+                arrows: true,
+                rows: 2,
+                speed: 300,
+                slidesToShow: 2,
+                slidesToScroll: 2,
+                adaptiveHeight: true
+            });
+        }
+    </script>
+{% endif %}

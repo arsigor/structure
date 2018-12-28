@@ -1,0 +1,55 @@
+{% if is_granted("ROLE_ADMIN") %}
+    <li><a href="{{ path('homepage') }}"><i class="fa fa-sign-in"></i> Go to site</a></li>
+    <li><a href="{{ path('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
+{% endif %}
+<li class="dropdown user user-menu">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        {% if user is defined and user != null and user.path != '' %}
+            {% set path = '/data/users/'~user.id~'/'~user.path %}
+            <img src="{{ path }}" class="user-image" alt="Admin image">
+        {% else %}
+            <img src="/bundles/app/admin/images/avatar.jpg" class="img-circle user-image" alt="Admin image">
+        {% endif %}
+        <span class="hidden-xs">
+            {% if user is defined %}
+                {% if user.firstname is defined %}{{ user.firstname }}{% endif %}
+                {% if user.lastname is defined %}{{ user.lastname }}{% endif %}
+                {% if user.firstname is not defined and user.lastname is not defined %}
+                    {{ user.username }}
+                {% endif %}
+            {% else %}
+                NotDefined
+            {% endif %}
+        </span>
+    </a>
+    <ul class="dropdown-menu">
+        <li class="user-header">
+            {% if user is defined and user != null and user.path != '' %}
+                {% set path = '/data/users/'~user.id~'/'~user.path %}
+                <img src="{{ path }}" class="img-circle" alt="Admin image">
+            {% else %}
+                <img src="/bundles/app/admin/images/avatar.jpg" class="img-circle" alt="Admin image">
+            {% endif %}
+            <p>
+                {% if user is defined %}
+                    {% if user.firstname is defined %}{{ user.firstname }}{% endif %}
+                    {% if user.lastname is defined %}{{ user.lastname }}{% endif %}
+                    {% if user.birthday is defined %}<small>{{ user.birthday|date('d-m-Y') }}</small>{% endif %}
+                    {% if user.firstname is not defined and user.lastname is not defined %}
+                        {{ user.username }}
+                    {% endif %}
+                {% else %}
+                    NotDefined
+                {% endif %}
+            </p>
+        </li>
+        <li class="user-footer">
+            <div class="pull-left">
+                <a href="{{ path('admin_user_edit', {'id':user.id}) }}" class="btn btn-default btn-flat">Profile</a>
+            </div>
+            <div class="pull-right">
+                <a href="{{ path('fos_user_security_logout') }}" class="btn btn-default btn-flat">Sign out</a>
+            </div>
+        </li>
+    </ul>
+</li>

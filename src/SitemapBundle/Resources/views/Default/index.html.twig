@@ -1,0 +1,51 @@
+{% extends '::admin.html.twig' %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>Карта сайту</h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ path('homepage') }}"><i class="fa fa-home"></i> {{ 'Home'|trans }}</a></li>
+            <li><a href="{{ path('admin') }}">{{ 'admin'|trans }}</a></li>
+            <li class="active">Карта сайту</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="well well-white-group">
+                    <a class="btn btn-sm btn-warning btn-flat" href="{{ path('admin_sitemap_create') }}">
+                        <i class="fa fa-save"></i>
+                        Оновити карту сайту
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="box box-warning">
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tr>
+                        <th>Loc</th>
+                        <th>Lastmod</th>
+                        <th>Changefreq</th>
+                        <th>Priority</th>
+                    </tr>
+                    {% for c in content %}
+                        <tr>
+                            <td>
+                                <a href="{{ c[0] }}">
+                                    {{ c[0] }}
+                                </a>
+                            </td>
+                            <td>{{ c[1] }}</td>
+                            <td>{{ c[2] }}</td>
+                            <td>{{ c[3] }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </section>
+{% endblock %}

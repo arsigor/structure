@@ -1,0 +1,218 @@
+<?php
+
+namespace BlogBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
+/**
+ * Levels
+ *
+ * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
+ * @ORM\Table(name="blog_categories_levels")
+ * @ORM\Entity(repositoryClass="BlogBundle\Entity\Repository\LevelsRepository")
+ */
+class Levels
+{
+    use \A2lix\I18nDoctrineBundle\Doctrine\ORM\Util\Translatable;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(name="creation", type="datetime")
+     */
+    protected $creation;
+
+    /**
+     * @ORM\Column(name="modify", type="datetime")
+     */
+    protected $modify;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="BlogBundle\Entity\Categories", mappedBy="levels", cascade={"all"}, orphanRemoval=true)
+     */
+    private $categories;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="UsersBundle\Entity\Users", mappedBy="levels", cascade={"all"}, orphanRemoval=true)
+     */
+    private $users;
+
+    /**
+     * @return mixed
+     */
+    public function __toString()
+    {
+        $title = [];
+        foreach ($this->translations as $translation)
+        {
+            $title[] = $translation->getTitle();
+        }
+        return reset($title);
+    }
+
+    public function getTitle()
+    {
+        if(!$this->getCurrentTranslation()){
+            $title = 'No translations found...';
+        } else {
+            $title = $this->getCurrentTranslation()->getTitle();
+        }
+        return $title;
+    }
+
+    private $translations;
+
+    /**
+     * Get id.
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set creation.
+     *
+     * @param \DateTime $creation
+     *
+     * @return Levels
+     */
+    public function setCreation($creation)
+    {
+        $this->creation = $creation;
+
+        return $this;
+    }
+
+    /**
+     * Get creation.
+     *
+     * @return \DateTime
+     */
+    public function getCreation()
+    {
+        return $this->creation;
+    }
+
+    /**
+     * Set modify.
+     *
+     * @param \DateTime $modify
+     *
+     * @return Levels
+     */
+    public function setModify($modify)
+    {
+        $this->modify = $modify;
+
+        return $this;
+    }
+
+    /**
+     * Get modify.
+     *
+     * @return \DateTime
+     */
+    public function getModify()
+    {
+        return $this->modify;
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add user.
+     *
+     * @param \UsersBundle\Entity\Users $user
+     *
+     * @return Levels
+     */
+    public function addUser(\UsersBundle\Entity\Users $user)
+    {
+        $this->users[] = $user;
+
+        return $this;
+    }
+
+    /**
+     * Remove user.
+     *
+     * @param \UsersBundle\Entity\Users $user
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeUser(\UsersBundle\Entity\Users $user)
+    {
+        return $this->users->removeElement($user);
+    }
+
+    /**
+     * Get users.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+    /**
+     * Add category.
+     *
+     * @param \BlogBundle\Entity\Categories $category
+     *
+     * @return Levels
+     */
+    public function addCategory(\BlogBundle\Entity\Categories $category)
+    {
+        $this->categories[] = $category;
+
+        return $this;
+    }
+
+    /**
+     * Remove category.
+     *
+     * @param \BlogBundle\Entity\Categories $category
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeCategory(\BlogBundle\Entity\Categories $category)
+    {
+        return $this->categories->removeElement($category);
+    }
+
+    /**
+     * Get categories.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+}

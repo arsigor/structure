@@ -1,0 +1,12 @@
+services:
+    blog.post.form.type.em:
+        class: BlogBundle\Form\Type\PostType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+                - { name: form.type }
+
+    blog.category.form.type.em:
+            class: BlogBundle\Form\Type\CategoryType
+            arguments: ["@doctrine.orm.entity_manager"]
+            tags:
+                    - { name: form.type }

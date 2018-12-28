@@ -1,0 +1,58 @@
+.flex-container .list-blogs-wrapper {
+	padding: 0px 0px 0px 0px;
+	flex-basis: 60%;
+}
+.flex-container .aside-blogs {
+	flex-basis: 34%;
+	padding: 0px 0px 0px 0px;
+}
+.list-blogs-wrapper {
+
+}
+.aside-blogs {
+
+}
+.aside-blogs-header, .list-blogs-wrapper-header {
+	height: 45px;
+    border-bottom: 2px solid #a22118;
+    font-size: 20px;
+    color: #2d709d;
+    padding: 15px 10px 5px 10px;
+}
+
+/*blogpost*/
+
+.blogposts-top {
+
+}
+.blogposts-top .blogpost .blogpost-title a {
+	font-size: 20px;
+	display: inline-block;
+	padding: 5px 0px 0px 0px;
+}
+.blogposts-top .blogpost .blogpost-date {
+	padding-bottom: 5px;
+}
+.blogposts-top .blogpost .blogpost-controll, .blogposts .blogpost-controll {
+	padding: 5px 0px
+}
+.blogposts {
+
+}
+.blogposts .blogpost-author {
+
+}
+.blogposts .blogpost-controll {
+	display: flex;
+	justify-content: space-between;
+	padding-top: 0px;
+}
+.aside-blogs .blogpost {
+	margin-top: 0px;
+	padding: 15px 5px 0px 10px;
+	background-color: #ededed;
+}
+.aside-blogs .blogpost .blogpost-controll {
+	text-align: left;
+}
+

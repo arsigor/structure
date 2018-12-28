@@ -1,0 +1,39 @@
+.navbar-default{
+    margin-bottom: 0;
+    border-radius: 0;
+    background-color: #02bab0;
+    color: white;
+    border: 0;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #fff;
+}
+.navbar-brand{
+    min-height: 15px;
+    padding: 0 15px 5px;
+}
+.navbar-brand>img {
+    margin: 0;
+    padding: 0;
+    max-height: 50px;
+    height: auto;
+    overflow: auto;
+}
+.custom-color-text{
+    color: #02bab0;
+}
+.custom_footer{
+    height: 60px;
+    padding: 20px;
+    background-color: #02bab0;
+    color: #fff;
+}
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.content {
+    flex: 1;
+    padding: 20px;
+}

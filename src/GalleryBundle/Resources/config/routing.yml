@@ -1,0 +1,75 @@
+admin_gallery:
+    path:     /admin/gallery/{page}/{perpage}
+    defaults: { _controller: GalleryBundle:Admin:index, page: 1, perpage: %perpage_admin% }
+    requirements:
+        page: \d+
+        perpage: \d+
+
+admin_gallery_create:
+    path:     /admin/gallery/create
+    defaults: { _controller: GalleryBundle:Admin:create }
+
+admin_gallery_edit:
+    path:     /admin/gallery/edit/{id}
+    defaults: { _controller: GalleryBundle:Admin:edit }
+    requirements:
+            id: \d+
+
+admin_gallery_remove:
+    path:     /admin/gallery/remove/{id}
+    defaults: { _controller: GalleryBundle:Admin:remove }
+    requirements:
+            id: \d+
+
+# GALLERY IMAGE
+admin_gallery_images:
+    path:     /admin/gallery/images/{id}/{page}/{perpage}
+    defaults: { _controller: GalleryBundle:Admin:indexImages, page: 1, perpage: %perpage_admin% }
+    requirements:
+        id: \d+
+        page: \d+
+        perpage: \d+
+
+admin_gallery_image_edit:
+    path:     /admin/gallery/image/edit/{id}/{page}/{perpage}
+    defaults: { _controller: GalleryBundle:Admin:editImage, page: 1, perpage: %perpage_admin% }
+    requirements:
+        id: \d+
+        page: \d+
+        perpage: \d+
+
+admin_gallery_image_remove:
+    path:     /admin/gallery/image/remove/{id}/{page}/{perpage}
+    defaults: { _controller: GalleryBundle:Admin:removeImage, page: 1, perpage: %perpage_admin% }
+    requirements:
+        id: \d+
+        page: \d+
+        perpage: \d+
+
+#GALLERY VIDEO ADMIN
+admin_gallery_video_view:
+    path:     admin/gallery/video/all/{page}/{perpage}
+    defaults: { _controller: GalleryBundle:Admin:video, page: 1, perpage: %perpage_admin% }
+    requirements:
+        page: \d+
+        perpage: \d+
+
+admin_gallery_video_view_one:
+    path:     admin/gallery/video/view/{id}
+    defaults: { _controller: GalleryBundle:Admin:videoViewOne }
+
+admin_gallery_video_create:
+    path:     admin/gallery/video/create/new
+    defaults: { _controller: GalleryBundle:Admin:videoCreate }
+
+admin_gallery_video_edit:
+    path:     admin/gallery/video/edit/{id}
+    defaults: { _controller: GalleryBundle:Admin:videoEdit }
+    requirements:
+        page: \d+
+
+admin_gallery_video_delete:
+    path:     admin/gallery/video/delete/{id}
+    defaults: { _controller: GalleryBundle:Admin:videoRemove }
+    requirements:
+        page: \d+

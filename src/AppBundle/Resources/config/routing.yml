@@ -1,0 +1,51 @@
+homepage:
+    path:     /
+    defaults: { _controller: AppBundle:Base:index }
+
+admin:
+    path:     /admin
+    defaults: { _controller: AppBundle:Admin:index }
+
+#CATEGORY
+category_view_one:
+    path:     /category/view/{slug}
+    defaults: { _controller: AppBundle:BaseCategory:viewOne }
+
+#NEWS
+news_view_all:
+    path:     /news/{page}/{perpage}
+    defaults: { _controller: AppBundle:BaseNews:viewAll, page: 1, perpage: %perpage_base% }
+    requirements:
+        page: \d+
+        perpage: \d+
+
+news_view_one:
+    path:     /news/view/{slug}
+    defaults: { _controller: AppBundle:BaseNews:viewOne }
+
+#GALLERIES INDEX
+galleries_index:
+    path:     /galleries
+    defaults: { _controller: AppBundle:BaseGalleries:index }
+
+#GALLERIES PICTURE
+galleries_pictures_view_all:
+    path:     /galleries/pictures/{page}/{perpage}
+    defaults: { _controller: AppBundle:BaseGalleries:viewAllPicture, page: 1, perpage: %perpage_base% }
+    requirements:
+        page: \d+
+        perpage: \d+
+
+galleries_pictures_view_one:
+    path:     /galleries/pictures/view/{slug}
+    defaults: { _controller: AppBundle:BaseGalleries:viewOnePicture }
+
+#PAGE
+page_view_one:
+    path:     /page/{slug}
+    defaults: { _controller: AppBundle:BasePage:index }
+
+#ABOUT
+about_view_one:
+    path:     /about
+    defaults: { _controller: AppBundle:Base:about }

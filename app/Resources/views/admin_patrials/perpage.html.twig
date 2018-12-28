@@ -1,0 +1,27 @@
+{% block sub %}
+    {% set perpage_array = container.parameter('perpage') %}
+
+    <div class="form-horizontal">
+        <label class="control-label col-md-8" for="perpage">Кількість записів на сторінці:</label>
+        <div class="col-md-4">
+            <select id="perpage" class="form-control">
+                {% for pp in perpage_array %}
+                    {% if perpage == pp %}
+                        <option value={{ pp }} selected="selected">{{ pp }}</option>
+                    {% else %}
+                        <option value={{ pp }}>{{ pp }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    {% if url is not defined %}
+        {% set url = (path(app.request.get('_route'), {'page': 1 ,'perpage':  0})) %}
+    {% endif %}
+
+    <script>
+        var url = '{{ url }}';
+    </script>
+
+{% endblock%}

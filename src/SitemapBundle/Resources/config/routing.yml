@@ -1,0 +1,7 @@
+admin_sitemap_index:
+    path:     /admin/sitemap/index
+    defaults: { _controller: SitemapBundle:Default:index }
+
+admin_sitemap_create:
+    path:     /admin/sitemap/create
+    defaults: { _controller: SitemapBundle:Default:create }

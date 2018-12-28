@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block style %}
+            {% include '::base_partials/head.html.twig' %}
+        {% endblock %}
+    </head>
+    <body>
+        {% include '::base_partials/header.html.twig' %}
+        {% block header %}{% endblock %}
+        <div class="content">
+        {% block body %}{% endblock %}
+        </div>
+        {% block footer %}{% endblock %}
+        {% include '::base_partials/script.html.twig' %}
+        {% block script %}{% endblock %}
+    </body>
+</html>

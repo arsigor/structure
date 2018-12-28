@@ -1,0 +1,45 @@
+{% extends '::base.html.twig' %}
+
+{% block style %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/app/base/libs/fancybox/jquery.fancybox.min.css') }}" />
+{% endblock %}
+
+{% block header %}
+    <div class="top_green_block">
+        <h1 class="text-center">{{ gallery.title }}</h1>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="single-article-info" style="color: #3a7130">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            {{ gallery.translatable.creation|date('d.m.Y') }}
+        </div>
+        <div class="gallery-view-one">
+            <div class="row">
+                {% set images = gallery.translatable.images %}
+                {% if images is defined %}
+                    {% for row in images|batch(4, '') %}
+                        {% for i in row %}
+                            {% if i != '' %}
+                                {% set path = '/data/images/gallery/'~i.path %}
+                                <div class="col-xs-12 col-md-3">
+                                    <a class="embed-responsive embed-responsive-4by3" data-fancybox="gallery" href="{{ path }}">
+                                        <img style="margin: 10px 0; width: 100%; height: auto" class="img img-responsive" src="{{ path }}" alt="">
+                                    </a>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/app/base/libs/fancybox/jquery.fancybox.min.js') }}"></script>
+{% endblock %}

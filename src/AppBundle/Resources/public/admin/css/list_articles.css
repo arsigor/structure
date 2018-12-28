@@ -1,0 +1,85 @@
+.flex-container .list-articles-wrapper {
+	flex-basis: 60%;
+}
+.list-articles-header {
+	height: 45px;
+	border-bottom: 2px solid #a22118;
+	font-size: 20px;
+	color: #2d709d;
+	padding: 15px 10px 5px 10px;;
+}
+.important-articles-wrapper {
+	padding-bottom: 20px;
+}
+.list-articles-item-important {
+	display: flex;
+	min-height: 140px;
+	height: auto;
+	border-bottom: 1px solid #dbdbdb;
+	padding: 15px 0px;
+	flex-wrap: wrap;
+}
+.list-articles-item-important-img {
+	flex-basis: 100%;
+	background-size: cover;
+	background-position: center;
+	height: 140px;
+}
+.important-item-body {
+	flex-basis: 100%;
+	padding-top: 10px;
+}
+.list-articles-item {
+	display: flex;
+	padding: 10px 0px;
+	min-height: 100px;
+	height: auto;
+	border-bottom: 1px solid #dbdbdb;
+}
+.list-articles-item-img {
+	width: 70px;
+	height: 70px;
+	background-size: cover;
+	background-position: center;
+	flex-shrink: 0;
+}
+.list-articles-item-body {
+	padding-left: 10px;
+	width: 100%;
+}
+.list-articles-item-body .item-heading, .important-item-body .item-heading {
+	color: #2d709d;
+}
+.list-articles-item-body .item-heading:hover, .important-item-body .item-heading:hover {
+	text-decoration: underline;
+}
+.list-articles-item-body .item-heading h4, .important-item-body .item-heading h4 {
+	margin: 0px;
+	font-size: 16px;
+}
+.list-articles-item-body .item-info, .important-item-body .item-info {
+
+}
+.list-articles-item-body .item-date, .important-item-body .item-date {
+	color: #999999;
+	font-size: 14px;
+	display: inline-block;
+	margin-right: 10px;
+}
+.list-articles-item-body .item-info a, .important-item-body .item-info a {
+	font-size: 14px;
+	color: #999999;
+	font-weight: normal;
+}
+.list-articles-item-text, .important-item-body .important-list-articles-item-text {
+	color: #737373;
+	font-size: 14px;
+	line-height: 16px;
+}
+.list-articles-item-body .item-controll, .important-item-body .important-item-controll {
+	text-align: right;
+	color: #737373;
+}
+.list-articles-item-body .item-controll i, .important-item-body .important-item-controll i {
+	font-size: 12px;
+}

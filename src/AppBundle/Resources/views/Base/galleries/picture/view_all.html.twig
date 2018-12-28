@@ -1,0 +1,45 @@
+{% extends '::base.html.twig' %}
+
+{% block style %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header %}
+    <div class="top_green_block">
+        <h1 class="text-center">ФОТО</h1>
+    </div>
+{% endblock %}
+
+{% block body %}
+    {% if posts is defined %}
+        <section id="photos_list">
+            <div class="container">
+                {% if posts is defined %}
+                    <div class="row">
+                        {% for p in posts %}
+                            <div class="col-xs-12 col-md-3">
+                                <h5 style="margin-bottom: 0"><b>{{ p.title }}</b></h5>
+                                <div class="single-article-info" style="color: #3a7130">
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    {{ p.translatable.creation|date('d.m.Y') }}
+                                </div>
+                                <a class="embed-responsive embed-responsive-4by3" href="{{ path('galleries_pictures_view_one', {'slug':p.slug}) }}">
+                                    <img style="margin: 10px 0; width: 100%; height: auto" class="img img-responsive" src="/data/images/gallery/{{ p.translatable.path }}" alt="">
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="bottom-pagination">
+                        <div id="index-posts" class="navigation text-center">
+                            {{ knp_pagination_render(posts) }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+    {% endif %}
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+{% endblock %}

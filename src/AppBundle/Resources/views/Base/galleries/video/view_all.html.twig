@@ -1,0 +1,44 @@
+{% extends '::base.html.twig' %}
+
+{% block style %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header %}
+    <div class="top_green_block">
+        <h1 class="text-center">ВІДЕО</h1>
+    </div>
+{% endblock %}
+
+{% block body %}
+    {% if posts is defined %}
+        <section id="videos_list">
+            <div class="container">
+                <div class="row">
+                    {% for p in posts %}
+                        <div class="col-xs-12 col-md-3">
+                                <div class="col-md-12">
+                                    <h5 style="margin-bottom: 0"><b>{{ p.title }}<br>{{ p.creation|date("d.m.Y") }}</b></h5>
+                                    <a class="embed-responsive embed-responsive-16by9" data-fancybox="" href="{{ path('galleries_video_view_one', {'slug':p.slug}) }}">
+                                        <img style="padding: 10px 0;" src="https://img.youtube.com/vi/{{ p.iframe }}/mqdefault.jpg">
+                                    </a>
+                                </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="row">
+                    <div class="bottom-pagination">
+                        <div id="index-posts" class="navigation text-center">
+                            {{ knp_pagination_render(posts) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+{% endblock %}

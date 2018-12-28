@@ -1,0 +1,29 @@
+{% extends '::base.html.twig' %}
+
+{% block style %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header %}
+    {% if page is defined %}
+        <div class="top_green_block">
+            <h1 class="text-center">{{ page.title }}</h1>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    {% if page is defined %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-justify">{{ page.description|raw }}</div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+{% endblock %}

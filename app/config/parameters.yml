@@ -1,0 +1,25 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: ars
+    database_user: user
+    database_password: passwd
+    mailer_transport: gmail
+    mailer_host: null
+    mailer_user: mail@gmail.com
+    mailer_password: passwd
+    secret: ThisTokenIsNotSoSecretChangeIt
+    locales:
+        - uk
+    default_locale: uk
+    page_range: 6
+    perpage:
+        - 32
+        - 64
+        - 128
+    perpage_default: 32
+    perpage_base: 32
+    perpage_admin: 32
+    google-map-api-key: AIzaSyApmfMY0iMLE6hoy-PCUU5TQForXOEePEI
+    youtube_api_key: AIzaSyBSnkw9sQCe_h6GOfeKbxjXrRftMDT-TWo

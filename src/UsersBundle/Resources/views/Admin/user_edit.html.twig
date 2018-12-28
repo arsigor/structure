@@ -1,0 +1,239 @@
+{% extends '::admin.html.twig' %}
+
+{% block body %}
+    <link rel="stylesheet" href="{{ asset('bundles/app/admin/css/select2.css') }}" />
+    <section class="content-header">
+        <h1>Редагування користувача</h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ path('homepage') }}"><i class="fa fa-home"></i> {{ 'Home'|trans }}</a></li>
+            <li><a href="{{ path('admin') }}">{{ 'admin'|trans }}</a></li>
+            <li><a href="{{ path('admin_users_view_all') }}">Всі користувачі</a></li>
+            <li class="active">Редагування користувача</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-3">
+                <!-- Profile Image -->
+                <div class="box box-primary">
+                    <div class="box-body box-profile">
+                        {% if user.path != '' %}
+                                <img class="profile-user-img img-responsive img-circle previewImg" src="/data/users/{{ user.id }}/{{ user.path }}"/>
+                        {% else %}
+                            <img class="profile-user-img img-responsive img-circle previewImg" src="/bundles/app/admin/images/avatar.jpg"/>
+                        {% endif %}
+                        <h3 class="profile-username text-center">
+                            {% if user.firstname is defined %}{{ user.firstname }}{% endif %}
+                            {% if user.lastname is defined %}{{ user.lastname }}{% endif %}
+                            {% if user.patronymic is defined %}{{ user.patronymic }}{% endif %}
+                        </h3>
+                        <p class="text-muted text-center">
+                            {{ user.roles[0]|slice(5) }}
+                        </p>
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item">
+                                <strong><i class="fa fa-user margin-r-5"></i>Login</strong>
+                                <p class="text-muted">{{ user.username }}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <strong><i class="fa fa-at margin-r-5"></i>Email</strong>
+                                <p class="text-muted">{{ user.email }}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <strong><i class="fa fa-bolt margin-r-5"></i>Enabled</strong>
+                                <p class="text-muted">
+                                    {% if user.enabled == null %}No{% else %}Yes{% endif %}
+                                </p>
+                            </li>
+                            <li class="list-group-item">
+                                <strong><i class="fa fa-calendar margin-r-5"></i>Birthday</strong>
+                                <p class="text-muted">{{ user.birthday|date('d-m-Y') }}</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <form class="form-horizontal" action="" method="post" role="form" enctype="multipart/form-data">
+                <div class="col-md-9">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#security" data-toggle="tab" aria-expanded="true">Security</a></li>
+                            <li class=""><a href="#profile" data-toggle="tab" aria-expanded="false">Profile</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="security">
+                                <div class="form-group">
+                                    <label for="inputLogin" class="col-sm-2 control-label">{{ 'AdminUsersLevels'|trans}}</label>
+
+                                    <div class="col-sm-10">
+                                        {{ form_widget(form.levels, { 'attr': {'class': 'form-control'} }) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputLogin" class="col-sm-2 control-label">{{ 'AdminUsersLogin'|trans}}</label>
+
+                                    <div class="col-sm-10">
+                                        {{ form_widget(form.username, { 'attr': {'class': 'form-control'} }) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputLogin" class="col-sm-2 control-label">{{ 'AdminUsersEmail'|trans }}</label>
+
+                                    <div class="col-sm-10">
+                                        {{ form_widget(form.email, { 'attr': {'class': 'form-control'} }) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputLogin" class="col-sm-2 control-label">{{ 'AdminUsersOn'|trans }}</label>
+
+                                    <div class="col-sm-10">
+                                        {{ form_widget(form.enabled, { 'attr': {'class': 'form-control'} }) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputLogin" class="col-sm-2 control-label">{{ 'AdminUsersRights'|trans }}</label>
+
+                                    <div class="col-sm-10">
+                                        {{ form_widget(form.role, { 'attr': {'class': 'form-control'} }) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputLogin" class="col-sm-2 control-label">{{ 'AdminUsersNewPassword'|trans }}</label>
+
+                                    <div class="col-sm-10">
+                                        {{ form_widget(form.new_password.first, { 'attr': {'class': 'form-control'} }) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputLogin" class="col-sm-2 control-label">{{ 'AdminUsersConfirmPassword'|trans }}</label>
+
+                                    <div class="col-sm-10">
+                                        {{ form_widget(form.new_password.second, { 'attr': {'class': 'form-control'} }) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.tab-pane -->
+                            <div class="tab-pane" id="profile">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <label for="inputLogin" class="col-sm-2 control-label">{{ 'UsersSurname'|trans }}</label>
+                                            <div class="col-sm-10">
+                                                {{ form_widget(form.firstname, { 'attr': {'class': 'form-control'} }) }}
+                                                <span class="text-danger">{{ form_errors(form.firstname) }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputLogin" class="col-sm-2 control-label">{{ 'UsersName'|trans }}</label>
+
+                                            <div class="col-sm-10">
+                                                {{ form_widget(form.lastname, { 'attr': {'class': 'form-control'} }) }}
+                                                <span class="text-danger">{{ form_errors(form.lastname) }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputLogin" class="col-sm-2 control-label">{{ 'UsersPatronymic'|trans }}</label>
+
+                                            <div class="col-sm-10">
+                                                {{ form_widget(form.patronymic, { 'attr': {'class': 'form-control'} }) }}
+                                                <span class="text-danger">{{ form_errors(form.patronymic) }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputLogin" class="col-sm-2 control-label">{{ 'admin.edit.birthday'|trans }}</label>
+                                            <div class="col-sm-10">
+                                                <div class="input-group date datepicker">
+                                                    {{ form_widget(form.birthday, {'attr': {'class': 'form-control'} }) }}
+                                                    <span class="input-group-addon"><span class="glyphicon-calendar glyphicon"></span></span>
+                                                </div>
+                                                <span class="text-danger">{{ form_errors(form.birthday) }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group text-center col-md-12">
+                                            {% if user.path != '' %}
+                                                <div class="text-right" style="height: 20px;">
+                                                    <a href="{{ path('admin_user_delete_photo', {id:user.id}) }}">
+                                                        <span class="glyphicon glyphicon-remove"></span>
+                                                    </a>
+                                                </div>
+                                                <img class="img-responsive previewImg" src="/data/users/{{ user.id }}/{{ user.path }}"/>
+                                            {% else %}
+                                                <div style="height: 20px;">&nbsp;</div>
+                                                <img  class="profile-user-img img-responsive previewImg" src="/bundles/app/admin/images/avatar.jpg" class="img img-thumbnail" />
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-sm-10">
+                                            {{ form_widget(form.file, { 'attr': {'class': 'form-control'} }) }}
+                                            <span class="text-danger">{{ form_errors(form.file) }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.tab-pane -->
+                        </div>
+                        <!-- /.tab-content -->
+                    </div>
+                    <!-- /.nav-tabs-custom -->
+                </div>
+
+                <div class="col-md-12">
+                    <div class="well well-white-group">
+                        <button class="btn btn-warning btn-flat">
+                            <i class="fa fa-save"></i>
+                            {{ 'save'|trans }}
+                        </button>
+                        <a class="btn btn-flat btn-danger" href="{{ path('admin_users_view_all') }}">
+                            <i class="fa fa-sign-out"></i>
+                            Відміна
+                        </a>
+                    </div>
+                </div>
+                {{ form_rest(form) }}
+            </form>
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.col -->
+{% endblock %}
+{% block script %}
+    {{ parent() }}
+    <script>
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            locale: '{{ app.request.locale }}',
+            autoclose: true
+        });
+        $.fn.filestyle.defaults = {
+            'buttonText' : '&nbsp;&nbsp;&nbsp;&nbsp;Зображення',
+            'iconName' : 'glyphicon glyphicon-folder-open',
+            'buttonName' : 'btn-default changeBtn',
+            'size' : 'nr',
+            'input' : true,
+            'badge' : true,
+            'icon' : true,
+            'buttonBefore' : false,
+            'disabled' : false,
+            'placeholder': ''
+        };
+        $("#user_file").filestyle({input: false});
+        $("#user_file").change(function(){
+        $(".previewImg").val(new Date().getTime());
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('.previewImg').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    </script>
+
+    <script src="{{ asset('bundles/tetranzselect2entity/js/select2entity.js') }}"></script>
+    <script src="{{ asset('bundles/app/admin/js/select2.js') }}"></script>
+
+{% endblock %}
+

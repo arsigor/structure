@@ -1,0 +1,29 @@
+<section class="sidebar">
+    <ul class="sidebar-menu">
+        <li class="header">LEVELS</li>
+        {% if app.request.attributes.get('_route') == 'user' %}<li class='active'>{% else %}<li>{% endif %}
+            <a href="{{ path('admin_users_view_all') }}"><i class="fa fa-users"></i> <span>Users</span></a></li>
+        {% if app.request.attributes.get('_route') == 'admin_level_index' %}<li class='active'>{% else %}<li>{% endif %}
+            <a href="{{ path('admin_level_index') }}"><i class="fa  fa-tags"></i> <span>Levels</span></a></li>
+        {% if app.request.attributes.get('_route') == 'admin_category_index' %}<li class='active'>{% else %}<li>{% endif %}
+            <a href="{{ path('admin_category_index') }}"><i class="fa  fa-tags"></i> <span>Category news</span></a></li>
+        <li class="header">NEWS</li>
+        {% if app.request.attributes.get('_route') == 'admin_blog_posts' %}<li class='active'>{% else %}<li>{% endif %}
+            <a href="{{ path('admin_blog_posts') }}"><i class="fa fa-newspaper-o"></i> <span>News</span></a></li>
+
+        <li class="header">НАЛАШТУВАННЯ</li>
+
+
+        {% if app.request.attributes.get('_route') == 'admin_page_index' %}<li class='active'>{% else %}<li>{% endif %}
+            <a href="{{ path('admin_page_index') }}"><i class="fa fa-files-o"></i> <span>Pages</span></a></li>
+
+        {% if app.request.attributes.get('_route') == 'menu' %}<li class='active'>{% else %}<li>{% endif %}
+            <a href="{{ path('menu') }}"><i class="fa fa-bars"></i> <span>Site menu</span></a></li>
+
+        {% if app.request.attributes.get('_route') == 'admin_gallery' %}<li class='active'>{% else %}<li>{% endif %}
+            <a href="{{ path('admin_gallery') }}"><i class="fa fa-file-image-o"></i> <span>Photo Gallery</span></a></li>
+        {#{% if app.request.attributes.get('_route') == 'admin_sitemap_index' %}<li class='active'>{% else %}<li>{% endif %}#}
+            {#<a href="{{ path('admin_sitemap_index') }}"><i class="fa fa-sitemap"></i> <span>Карта сайту</span></a></li>#}
+
+    </ul>
+</section>

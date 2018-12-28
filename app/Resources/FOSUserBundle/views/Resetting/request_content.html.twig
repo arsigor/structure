@@ -1,0 +1,23 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="login-box">
+    <div class="login-logo">
+        <a href="{{ path('homepage') }}"><b>Free</b> Ticket</a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+        <p class="login-box-msg">Enter profile information</p>
+        <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="main-form">
+            <div class="form-group has-feedback">
+                <input type="text" class="form-control" id="username" name="username" required="required" placeholder="Name or Email">
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+            <div>
+                <input type="submit" class="btn btn-warning btn-block btn-flat" value="Reset password" />
+            </div>
+        </form>
+    </div>
+    <!-- /.login-box-body -->
+</div>
+<!-- /.login-box -->
+

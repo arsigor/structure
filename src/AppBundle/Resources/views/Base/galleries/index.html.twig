@@ -1,0 +1,86 @@
+{% extends '::base.html.twig' %}
+
+{% block style %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/app/base/libs/fancybox/jquery.fancybox.min.css') }}" />
+{% endblock %}
+
+{% block header %}
+    <div class="top_green_block">
+        <h1 class="text-center">ГАЛЕРЕЯ</h1>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="text-center">ФОТО</h1>
+                    </div>
+                    <div class="col-md-12">
+                        {% if galleries is defined %}
+                        <div class="row">
+                            {% for g in galleries %}
+                                {% if g.path != null %}
+                                    <div class="col-xs-12 col-md-3">
+                                        <h5 style="margin-bottom: 0"><b>{{ g.title }}</b></h5>
+                                        <div class="single-article-info" style="color: #3a7130">
+                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                            {{ g.translatable.creation|date('d.m.Y') }}
+                                        </div>
+                                        <a class="embed-responsive embed-responsive-4by3" href="{{ path('galleries_pictures_view_one', {'slug':g.slug}) }}">
+                                            <img style="margin: 10px 0; width: 100%; height: auto" class="img img-responsive" src="/data/images/gallery/{{ g.translatable.path }}" alt="">
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                            <div class="col-xs-12 col-md-3">
+                                <br>
+                                <a class="embed-responsive embed-responsive-4by3" href="{{ path('galleries_pictures_view_all') }}">
+                                    <img style="margin: 10px 0; width: 100%; height: auto" class="img img-responsive" src="/bundles/app/base/images/eye-icon.png" alt="">
+                                </a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {#<div class="col-md-3">#}
+                {#<div class="row">#}
+                    {#{% if galleries is defined %}#}
+                    {#<div class="col-md-12">#}
+                        {#<h1 class="text-center">ВІДЕО</h1>#}
+                    {#</div>#}
+                    {#{% for v in videos %}#}
+                    {#<div class="col-md-12">#}
+                        {#<h5 style="margin-bottom: 0"><b>{{ v.title }}</b></h5>#}
+                        {#<div class="single-article-info" style="color: #3a7130">#}
+                            {#<i class="fa fa-calendar" aria-hidden="true"></i>#}
+                            {#{{ v.translatable.creation|date('d.m.Y') }}#}
+                        {#</div>#}
+                        {#<a class="embed-responsive embed-responsive-16by9" data-fancybox="" href="https://www.youtube.com/watch?v={{ v.iframe }}">#}
+                            {#<img style="padding: 10px 0;" src="https://img.youtube.com/vi/{{ v.iframe }}/mqdefault.jpg">#}
+                        {#</a>#}
+                    {#</div>#}
+                    {#{% endfor %}#}
+                    {#<div class="col-lg-12">#}
+                        {#<a href="{{ path('galleries_video_view_all') }}">#}
+                            {#<div style="margin: 10px 0; height: 40px; width: 100%; background-color: #3a7130;">#}
+                                {#<p class="text-center" style="color: #ffffff; padding: 10px 10px;">Переглянути всі</p>#}
+                            {#</div>#}
+                        {#</a>#}
+                    {#</div>#}
+                    {#{% endif %}#}
+                {#</div>#}
+            {#</div>#}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/app/base/libs/fancybox/jquery.fancybox.min.js') }}"></script>
+{% endblock %}

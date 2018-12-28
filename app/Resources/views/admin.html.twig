@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      {% block style %}
+          {% include '::admin_patrials/head.html.twig' %}
+      {% endblock %}
+  </head>
+  <body class="hold-transition skin-yellow sidebar-mini">
+  <div class="wrapper">
+    <header class="main-header">
+        {% include '::admin_patrials/header.html.twig' %}
+    </header>
+    <aside class="main-sidebar">
+        {% include '::admin_patrials/menu.html.twig' %}
+        {% block header %}{% endblock %}
+    </aside>
+    <div class="content-wrapper">
+        {% block body %}{% endblock %}
+    </div>
+    <footer class="main-footer">
+        {% include '::admin_patrials/footer.html.twig' %}
+    </footer>
+  </div>
+  {% block script %}
+      {% include '::admin_patrials/script.html.twig' %}
+  {% endblock %}
+  </body>
+</html>

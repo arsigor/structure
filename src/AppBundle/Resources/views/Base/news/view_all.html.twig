@@ -1,0 +1,64 @@
+{% extends '::base.html.twig' %}
+
+{% block style %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header %}
+    <div class="top_green_block">
+        <h1 class="text-center">НОВИНИ</h1>
+    </div>
+{% endblock %}
+
+{% block body %}
+    {% if posts is defined %}
+        <section class="news-index-content">
+            <div class="container">
+                {% for p in posts %}
+                    <a href="{{ path('news_view_one', {'slug':p.slug}) }}">
+                        <div class="col-lg-3">
+                            <div class="card">
+                                {% if p.translatable.path1 != '' %}
+                                    {% set path = '/data/news/'~p.translatable.id~'/'~p.translatable.path1 %}
+                                    <img src="{{ path }}" width="100%" height="200px">
+                                {% else %}
+                                    <img class="img img-responsive" src="/bundles/app/base/images/no-image.png">
+                                {% endif %}
+                                <h4>{{ p.title }}</h4>
+                                <div class="single-article-info" style="margin: 20px; color: #3a7130">
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    {{ p.begindate|date('d.m.Y') }}
+                                </div>
+                                <p class="text-justify">
+                                    {% if p.brief != '' %}
+                                        {{ p.brief|striptags|slice(0, 100)|raw }}
+                                        {% if p.brief|striptags|length > 100 %}...{% endif %}
+                                    {% else %}
+                                        {{ p.description|striptags|slice(0, 100)|raw }}
+                                        {% if p.description|striptags|length > 100 %}...{% endif %}
+                                    {% endif %}
+                                </p>
+                                <p class="text-center" style="opacity: 1">
+                                    <a href="{{ path('news_view_one', {'slug':p.slug}) }}" class="green-button">Детальніше</a>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="bottom-pagination">
+                        <div id="index-posts" class="navigation text-center">
+                            {{ knp_pagination_render(posts) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+{% endblock %}

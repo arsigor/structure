@@ -1,0 +1,6 @@
+services:
+    gallery.upload_listener:
+        class: GalleryBundle\EventListener\UploadListener
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }

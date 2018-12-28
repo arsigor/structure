@@ -1,0 +1,95 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="register-box" style="margin: 4% auto;">
+    <div class="register-logo">
+        <a href="{{ path('homepage') }}"><b>Free</b> Ticket</a>
+    </div>
+    <div class="register-box-body">
+        <p class="login-box-msg">Реєстрація нового користуквача</p>
+        <form action="{{ path('fos_user_registration_register') }}" method="post" role="form" enctype="multipart/form-data">
+            <div class="form-group has-feedback row">
+                <div class="col-md-6">
+                    <img class="img img-thumbnail profile-user-img img-responsive previewImg" src="/bundles/app/admin/images/avatar.jpg" />
+                </div>
+                <div class="col-md-6">
+                    {{ form_widget(form.file, { 'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.file) }}
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                {{ form_widget(form.username, { 'attr': {'class': 'form-control',
+                    'placeholder': 'Login'|trans,
+                    'pattern':"^[^&~@<>!,.?:;()]{6,25}$", 'title':"Довжина 6-25,  без спецсимволів"} }) }}
+                {{ form_errors(form.username) }}
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                {{ form_widget(form.firstname, { 'attr': {'class': 'form-control',
+                    'placeholder': 'Firstname'|trans,
+                    'pattern':"^[^0-9&~@<>!,.?:;()]{6,25}$", 'title':"Довжина 6-25, без спецсимволів та цифр"} }) }}
+                {{ form_errors(form.firstname) }}
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                {{ form_widget(form.lastname, { 'attr': {'class': 'form-control',
+                    'placeholder': 'Lastname'|trans,
+                    'pattern':"^[^0-9&~@<>!,.?:;()]{6,25}$", 'title':"Довжина 6-25, без спецсимволів та цифр"} }) }}
+                {{ form_errors(form.lastname) }}
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                {{ form_widget(form.patronymic, { 'attr': {'class': 'form-control',
+                    'placeholder': 'Patronymic'|trans,
+                    'pattern':"^[^0-9&~@<>!,.?:;()]{6,25}$", 'title':"Довжина 6-25, без спецсимволів та цифр"} }) }}
+                {{ form_errors(form.patronymic) }}
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                {{ form_widget(form.birthday, {'attr': {'class': 'form-control'} }) }}
+                <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                {{ form_widget(form.email, { 'attr': {'class': 'form-control',
+                    'placeholder': 'E-mail'} }) }}
+                {{ form_errors(form.email) }}
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                {{ form_widget(form.phone, { 'attr': {'class': 'form-control',
+                    'placeholder': '+380123456789',
+                    'pattern':"[\+][3]{1}[8]{1}[0]{1}[0-9]{9}", 'title':"Номер повинен бути в міжнародномцу форматі"} }) }}
+                {{ form_errors(form.phone) }}
+                <span class="glyphicon glyphicon-earphone form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                {{ form_widget(form.plainPassword.first, { 'attr': {'class': 'form-control',
+                    'placeholder': 'Passwd'|trans} }) }}
+                {{ form_errors(form.plainPassword.first) }}
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                {{ form_widget(form.plainPassword.second, { 'attr': {'class': 'form-control',
+                    'placeholder': 'RePasswd'|trans} }) }}
+                {{ form_errors(form.plainPassword.second) }}
+                <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                    <div class="checkbox icheck">
+                        <label>
+                            <input type="checkbox" required="true"/> Я згоден з <a href="#">правилами</a>
+                        </label>
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-xs-4">
+                    <button type="submit" class="btn btn-warning btn-block btn-flat">Реєстрація</button>
+                </div>
+                <!-- /.col -->
+            </div>
+            {{ form_rest(form) }}
+        </form>
+        <a href="{{ path('homepage') }}" class="text-center">Я вже зареєстрований</a>
+    </div>
+    <!-- /.form-box -->
+</div>

@@ -1,0 +1,19 @@
+services:
+    UsersBundle\DataFixtures\UsersFixture:
+        tags: [doctrine.fixture.orm]
+
+    users.form.registration:
+        class: UsersBundle\Form\Type\RegistrationFormType
+        tags:
+            - { name: form.type, alias: app_user_registration }
+
+    users.form.profile:
+        class: UserBundle\Form\Type\ProfileFormType
+        tags:
+            - { name: form.type, alias: app_user_profile }
+
+    edit.user.form.type.roles:
+        class: UsersBundle\Form\Type\UserType
+        arguments: ["@service_container", "@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
