@@ -3,7 +3,7 @@
 namespace UsersBundle\DataFixtures;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use UsersBundle\Entity\Users;
 use MenuBundle\Entity\Routes;
 
@@ -49,5 +49,4 @@ class UsersFixture implements FixtureInterface
         $manager->flush();
     }
 }
-
 

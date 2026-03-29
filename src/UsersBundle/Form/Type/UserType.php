@@ -5,7 +5,7 @@ namespace UsersBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -37,7 +37,7 @@ class UserType extends AbstractType
 
         $builder->add('username', TextType::class);
         $builder->add('email', TextType::class);
-        $builder->add('new_password', RepeatedType::class, array('required' => false, 'mapped' => false, 'data' => NUll, 'type' => PasswordType::class, 'invalid_message' => 'Passwords do not match'));
+        $builder->add('new_password', RepeatedType::class, array('required' => false, 'mapped' => false, 'data' => null, 'type' => PasswordType::class, 'invalid_message' => 'Passwords do not match'));
         $builder->add('enabled', ChoiceType::class, array('choices' => array('Да'=>true,'Нет'=>false)));
         $builder->add('role', ChoiceType::class, array('choices' => $rolesArray, 'data' => $builder->getData()->getRoles()[0]));
         $builder->add('lastname', TextType::class);
@@ -65,16 +65,11 @@ class UserType extends AbstractType
         ]);
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'UsersBundle\Entity\Users',
         ));
-    }
-
-    function getName()
-    {
-        return 'user';
     }
 
 }
