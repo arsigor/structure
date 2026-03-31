@@ -3,7 +3,7 @@
 namespace MenuBundle\DataFixtures;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use MenuBundle\Entity\Routes;
 
 class LoadRouteData implements FixtureInterface

@@ -3,7 +3,7 @@
 namespace BlogBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 
 use BlogBundle\Entity\Categories;
 use BlogBundle\Entity\CategoriesTranslation;

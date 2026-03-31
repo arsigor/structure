@@ -2,7 +2,7 @@
 
 namespace GalleryBundle\EventListener;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Oneup\UploaderBundle\Event\PostPersistEvent;
 
 class UploadListener
