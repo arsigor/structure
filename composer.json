@@ -38,7 +38,7 @@
         "jms/i18n-routing-bundle": "^2.0",
         "knplabs/knp-menu-bundle": "^2.0",
         "knplabs/knp-paginator-bundle": "^2.6",
-        "liip/imagine-bundle": "^1.8",
+        "liip/imagine-bundle": "^2.7",
         "sonata-project/seo-bundle": "^2.2",
         "stof/doctrine-extensions-bundle": "^1.2",
         "tetranz/select2entity-bundle": "^2.9"
