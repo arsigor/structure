@@ -20,7 +20,7 @@
         ]
     },
     "require": {
-        "php": "^8.1",
+        "php": "^7.4 || ^8.1",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",
         "friendsofsymfony/user-bundle": "~2.0",
@@ -38,7 +38,7 @@
         "jms/i18n-routing-bundle": "^2.0",
         "knplabs/knp-menu-bundle": "^2.0",
         "knplabs/knp-paginator-bundle": "^2.6",
-        "liip/imagine-bundle": "^2.7",
+        "liip/imagine-bundle": "^1.8",
         "sonata-project/seo-bundle": "^2.2",
         "stof/doctrine-extensions-bundle": "^1.2",
         "tetranz/select2entity-bundle": "^2.9"
@@ -64,6 +64,9 @@
         ]
     },
     "config": {
+        "platform": {
+            "php": "7.4.33"
+        },
         "sort-packages": true
     },
     "extra": {
